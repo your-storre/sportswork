@@ -62,11 +62,13 @@
         .sub-filter-item { font-size: 12px; font-weight: 600; color: #666; white-space: nowrap; padding-bottom: 4px; cursor: pointer; }
         .sub-filter-item.active { color: var(--brand-green); border-bottom: 2px solid var(--brand-green); }
 
-        /* --- 1UP / 2UP TOGGLE --- */
-        .toggle-container { display: flex; background: #1a1a1a; border-radius: 16px; padding: 2px; border: 1px solid #333; margin-left: auto; }
-        .toggle-item { padding: 2px 6px; font-size: 10px; font-weight: 700; color: #888; border-radius: 12px; cursor: pointer; user-select: none; transition: all 0.15s ease; }
-        .toggle-item.active { background: var(--brand-green); color: white; }
-        .toggle-divider { width: 1px; height: 14px; background-color: #444; }
+        /* --- 1UP / 2UP ICON (BIG x2 = 80px) --- */
+        .toggle-container { display: flex; align-items: center; margin-left: auto; }
+        .up-down-icon { 
+            height: 80px;                /* doubled from 40px */
+            width: auto; 
+            object-fit: contain; 
+        }
 
         /* --- DARK MATCH CARDS --- */
         .match-card { background: var(--bg-dark-card); margin: 10px 15px 15px; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
@@ -121,7 +123,6 @@
             margin-bottom: -3px; 
         }
 
-        /* Standard icons (20px) */
         .icon-nav-icon { 
             height: 20px; 
             width: auto; 
@@ -133,40 +134,34 @@
             line-height: 1;
         }
         
-        /* ---- NEW CLIPPING WRAPPER (no absolute positioning) ---- */
         .icon-clip-wrapper {
             display: inline-block;
-            height: 30px;               /* visible height (clips 6px from bottom of 36px icon) */
+            height: 30px;               
             overflow: hidden;
-            line-height: 0;             /* removes extra space below inline-block */
+            line-height: 0;             
         }
         .icon-clip-wrapper img {
             display: block;
-            height: 36px;               /* full icon height */
+            height: 36px;               
             width: auto;
             object-fit: contain;
-            object-position: top;       /* keep the top part visible, hide bottom border */
+            object-position: top;       
         }
         
-        /* Home icon - no extra filters */
         .icon-home-clipped {
-            /* defaults fine */
+            /* defaults */
         }
         
-        /* Games icon - remove white background via screen blend (only needed if image has white bg) */
         .icon-games-clipped {
             mix-blend-mode: screen;
             filter: brightness(1.2);
         }
         
-        /* Active state: make icons white (both Home and Games) */
         .main-nav-item.active-red .icon-clip-wrapper img {
             filter: brightness(0) invert(1);
         }
-        /* For the games icon, the active override already sets filter; no need to keep previous mix-blend.
-           But we must ensure the mix-blend-mode does not conflict. We can reset mix-blend-mode on active. */
         .main-nav-item.active-red .icon-games-clipped {
-            mix-blend-mode: normal;     /* active state should not use screen */
+            mix-blend-mode: normal;
         }
     </style>
 </head>
@@ -245,9 +240,7 @@
         <div class="sub-filter-item">1st Half O/U</div>
         <div class="sub-filter-item">Handicap</div>
         <div class="toggle-container">
-            <div class="toggle-item active" onclick="toggleUp('1')">1Up</div>
-            <div class="toggle-divider"></div>
-            <div class="toggle-item" onclick="toggleUp('2')">2Up</div>
+            <img src="https://i.ibb.co/7dBg76W5/4bb6723f-e014-46e7-b400-55bcb7e0bf9b.png" class="up-down-icon" alt="1Up/2Up">
         </div>
     </div>
 
@@ -287,7 +280,7 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM NAV (final, properly clipped icons) -->
+    <!-- BOTTOM NAV -->
     <div class="bottom-main-nav">
         <!-- Home -->
         <div class="main-nav-item active-red">
@@ -328,12 +321,6 @@
         let betslipCount = 0;
         const badge = document.getElementById('betslip-count');
         function addBet() { betslipCount++; badge.innerText = betslipCount; }
-        function toggleUp(selected) {
-            const items = document.querySelectorAll('.toggle-item');
-            items.forEach(el => el.classList.remove('active'));
-            if (selected === '1') items[0].classList.add('active');
-            else items[1].classList.add('active');
-        }
     </script>
 </body>
 </html>
