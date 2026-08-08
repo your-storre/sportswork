@@ -100,13 +100,12 @@
             border-top: 1px solid #333; 
         }
         
-        /* MAIN NAV ITEM – uses flex-end to lock all text to the same bottom line */
         .main-nav-item { 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: flex-end;   /* text at the bottom, icon above */
-            height: 56px;                /* increased to comfortably fit larger icons */
+            justify-content: flex-end; 
+            height: 56px; 
             font-size: 10px; 
             color: #aaa; 
             gap: 3px; 
@@ -115,48 +114,59 @@
             min-width: 50px;
         }
         
-        /* Active state */
         .main-nav-item.active-red { 
             color: white; 
             border-bottom: 3px solid var(--brand-red); 
-            padding-bottom: 1px;        /* compensate border */
-            margin-bottom: -3px;       /* visual height consistency */
+            padding-bottom: 1px; 
+            margin-bottom: -3px; 
         }
-        .main-nav-item.active-red img { filter: brightness(0) invert(1); }
-        .main-nav-item.active-red i { color: white; }
 
-        /* ICON SIZES */
-        /* Standard icons (AZ Menu, Open Bets, Me) – 20px */
+        /* Standard icons (20px) */
         .icon-nav-icon { 
             height: 20px; 
             width: auto; 
             object-fit: contain; 
         }
-        
-        /* Font Awesome icons sizing (AZ Menu and Me) */
         .main-nav-item i.fa-bars,
         .main-nav-item i.fa-user {
             font-size: 20px;
             line-height: 1;
         }
         
-        /* Home icon – enlarged to 36px */
-        .icon-home-big { 
-            height: 36px; 
-            width: auto; 
-            object-fit: contain; 
+        /* ---- NEW CLIPPING WRAPPER (no absolute positioning) ---- */
+        .icon-clip-wrapper {
+            display: inline-block;
+            height: 30px;               /* visible height (clips 6px from bottom of 36px icon) */
+            overflow: hidden;
+            line-height: 0;             /* removes extra space below inline-block */
+        }
+        .icon-clip-wrapper img {
+            display: block;
+            height: 36px;               /* full icon height */
+            width: auto;
+            object-fit: contain;
+            object-position: top;       /* keep the top part visible, hide bottom border */
         }
         
-        /* Games icon – now 36px, matching Home icon */
-        .icon-games-big { 
-            height: 36px; 
-            width: auto; 
-            object-fit: contain; 
-            mix-blend-mode: screen; 
+        /* Home icon - no extra filters */
+        .icon-home-clipped {
+            /* defaults fine */
+        }
+        
+        /* Games icon - remove white background via screen blend (only needed if image has white bg) */
+        .icon-games-clipped {
+            mix-blend-mode: screen;
             filter: brightness(1.2);
         }
-        .main-nav-item.active-red .icon-games-big { 
-            filter: brightness(0) invert(1); 
+        
+        /* Active state: make icons white (both Home and Games) */
+        .main-nav-item.active-red .icon-clip-wrapper img {
+            filter: brightness(0) invert(1);
+        }
+        /* For the games icon, the active override already sets filter; no need to keep previous mix-blend.
+           But we must ensure the mix-blend-mode does not conflict. We can reset mix-blend-mode on active. */
+        .main-nav-item.active-red .icon-games-clipped {
+            mix-blend-mode: normal;     /* active state should not use screen */
         }
     </style>
 </head>
@@ -277,33 +287,37 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM NAV (Home & Games 36px, text perfectly aligned) -->
+    <!-- BOTTOM NAV (final, properly clipped icons) -->
     <div class="bottom-main-nav">
-        <!-- Home: 36px icon -->
+        <!-- Home -->
         <div class="main-nav-item active-red">
-            <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home-big" alt="Home">
+            <div class="icon-clip-wrapper">
+                <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home-clipped" alt="Home">
+            </div>
             Home
         </div>
         
-        <!-- AZ Menu: standard 20px bars -->
+        <!-- AZ Menu -->
         <div class="main-nav-item">
             <i class="fas fa-bars"></i>
             AZ Menu
         </div>
         
-        <!-- Games: 36px, white background removed, purple preserved -->
+        <!-- Games -->
         <div class="main-nav-item">
-            <img src="https://i.ibb.co/27MPPNc5/a9eff99e-4275-4f0b-ae7f-774b5cb64313.png" class="icon-games-big" alt="Games">
+            <div class="icon-clip-wrapper">
+                <img src="https://i.ibb.co/27MPPNc5/a9eff99e-4275-4f0b-ae7f-774b5cb64313.png" class="icon-games-clipped" alt="Games">
+            </div>
             Games
         </div>
         
-        <!-- Open Bets: standard 20px -->
+        <!-- Open Bets -->
         <div class="main-nav-item">
             <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" class="icon-nav-icon" alt="Open Bets">
             Open Bets
         </div>
         
-        <!-- Me: standard 20px user icon -->
+        <!-- Me -->
         <div class="main-nav-item">
             <i class="fas fa-user"></i>
             Me
