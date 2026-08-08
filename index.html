@@ -106,10 +106,10 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: flex-end;   /* text at the bottom, icon above */
-            height: 52px;                /* fixed height ensures uniform baseline */
+            height: 56px;                /* increased to comfortably fit larger icons */
             font-size: 10px; 
             color: #aaa; 
-            gap: 2px; 
+            gap: 3px; 
             padding-bottom: 4px; 
             cursor: pointer; 
             min-width: 50px;
@@ -140,16 +140,16 @@
             line-height: 1;
         }
         
-        /* Home icon – larger (28px) */
+        /* Home icon – enlarged to 36px */
         .icon-home-big { 
-            height: 28px; 
+            height: 36px; 
             width: auto; 
             object-fit: contain; 
         }
         
-        /* Games icon – NOW MATCHES HOME AT 28px (enlarged) */
+        /* Games icon – now 36px, matching Home icon */
         .icon-games-big { 
-            height: 28px;               /* same size as Home */
+            height: 36px; 
             width: auto; 
             object-fit: contain; 
             mix-blend-mode: screen; 
@@ -277,9 +277,9 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM NAV (Home and Games both 28px, text aligned) -->
+    <!-- BOTTOM NAV (Home & Games 36px, text perfectly aligned) -->
     <div class="bottom-main-nav">
-        <!-- Home: 28px icon -->
+        <!-- Home: 36px icon -->
         <div class="main-nav-item active-red">
             <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home-big" alt="Home">
             Home
@@ -291,7 +291,7 @@
             AZ Menu
         </div>
         
-        <!-- Games: now 28px, white background removed, purple preserved -->
+        <!-- Games: 36px, white background removed, purple preserved -->
         <div class="main-nav-item">
             <img src="https://i.ibb.co/27MPPNc5/a9eff99e-4275-4f0b-ae7f-774b5cb64313.png" class="icon-games-big" alt="Games">
             Games
