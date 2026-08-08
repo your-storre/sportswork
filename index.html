@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SportyBet App</title>
-    <link rel="stylesheet" href="https://s.sporty.net/global/main/modules/common-wap/core/core.a808ebd5a8.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -14,35 +13,33 @@
         
         :root { --brand-red: #d81b22; --brand-green: #00975f; --bg-dark: #222326; --bg-dark-card: #2c2d30; }
 
-        /* --- FIXED HEADER --- */
+        /* --- HEADER --- */
         .header { position: fixed; top: 0; left: 0; width: 100%; height: 58px; background: var(--brand-red); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .logo-img { height: 24px; object-fit: contain; }
         .header-right { display: flex; gap: 10px; align-items: center; }
         .search-icon { color: white; font-size: 18px; cursor: pointer; }
-        
-        /* Fixed Balance Pill with thin border */
         .balance-pill { background: var(--brand-red); border: 1px solid white; border-radius: 4px; padding: 2px 8px; display: flex; align-items: center; gap: 4px; color: white; font-weight: 700; font-size: 11px; }
-        .balance-pill i { font-size: 13px; color: white; }
+        .balance-pill i { font-size: 13px; }
 
-        /* --- SQUARE TOP GAME CARDS --- */
+        /* --- SQUARE GAME CARDS --- */
         .game-cards { background: white; padding: 12px 0 12px 15px; display: flex; overflow-x: auto; gap: 8px; margin-top: 58px; border-bottom: 8px solid #f5f5f5; }
         .game-cards::-webkit-scrollbar { display: none; }
         .game-card { min-width: 65px; width: 65px; height: 65px; border-radius: 10px; padding: 4px; display: flex; flex-direction: column; justify-content: flex-end; color: white; font-weight: 700; font-size: 9px; position: relative; overflow: hidden; cursor: pointer; }
         .game-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         .game-card span { position: relative; z-index: 1; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
-        
+
         /* --- TOP ICON NAV --- */
         .icon-nav { background: white; display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 8px solid #f5f5f5; overflow-x: auto; }
         .icon-nav::-webkit-scrollbar { display: none; }
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #222; gap: 4px; font-weight: 600; cursor: pointer; min-width: 42px; }
         .nav-item img { height: 20px; width: 20px; object-fit: contain; }
 
-        /* --- SUB TABS (Fixed Top Lines) --- */
+        /* --- SUB TABS --- */
         .sub-tabs { background: white; display: flex; padding: 0; }
         .sub-tab { flex: 1; text-align: center; padding: 14px 5px; font-size: 11px; font-weight: 700; color: #222; border-top: 3px solid transparent; border-bottom: 3px solid transparent; cursor: pointer; }
         .sub-tab.active { border-top: 3px solid var(--brand-red); border-bottom: 3px solid var(--brand-red); }
-        .sub-tab.gray-line { border-top: 3px solid #aaa; border-bottom: 3px solid transparent; }
-        .sub-tab.green-line { border-top: 3px solid var(--brand-green); border-bottom: 3px solid transparent; }
+        .sub-tab.gray-line { border-top: 3px solid #aaa; }
+        .sub-tab.green-line { border-top: 3px solid var(--brand-green); }
 
         /* --- MAIN TABS --- */
         .main-tabs { background: white; display: flex; padding: 10px 15px; gap: 20px; align-items: center; border-bottom: 1px solid #eee; }
@@ -53,53 +50,66 @@
         .league-wrapper { padding: 15px 15px 5px; background: white; border-bottom: 8px solid #f5f5f5; display: flex; overflow-x: auto; gap: 10px; }
         .league-wrapper::-webkit-scrollbar { display: none; }
         .league-pill { background: white; border: 1px solid #ddd; border-radius: 50px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #222; white-space: nowrap; }
-        .league-pill img, .league-pill i { height: 16px; width: 16px; object-fit: contain; }
+        .league-pill img { height: 16px; width: 16px; object-fit: contain; border-radius: 50%; }
 
         /* --- STICKY FILTERS --- */
         .sticky-filters { position: sticky; top: 58px; z-index: 999; background: var(--bg-dark); display: flex; justify-content: space-around; padding: 8px 10px; border-top: 1px solid #333; border-bottom: 1px solid #333; }
         .sticky-sub-filters { position: sticky; top: 96px; z-index: 999; background: white; display: flex; overflow-x: auto; padding: 6px 15px; gap: 20px; border-bottom: 1px solid #eee; align-items: center; }
         .sticky-sub-filters::-webkit-scrollbar { display: none; }
-        
         .filter-item { font-size: 12px; font-weight: 700; color: #aaa; padding-bottom: 3px; cursor: pointer; }
         .filter-item.active-green { color: var(--brand-green); border-bottom: 3px solid var(--brand-green); }
         .filter-item.active-white { color: white; border-bottom: 3px solid white; }
         .sub-filter-item { font-size: 12px; font-weight: 600; color: #666; white-space: nowrap; padding-bottom: 4px; cursor: pointer; }
         .sub-filter-item.active { color: var(--brand-green); border-bottom: 2px solid var(--brand-green); }
 
-        /* --- iOS TOGGLE BUTTON (1Up / 2Up) --- */
-        .toggle-container { display: flex; background: #222; border-radius: 16px; padding: 2px; border: 1px solid #555; margin-left: auto; }
-        .toggle-item { padding: 2px 10px; font-size: 10px; font-weight: 700; color: #ccc; border-radius: 14px; cursor: pointer; user-select: none; transition: background 0.2s, color 0.2s; }
+        /* --- 1UP / 2UP TOGGLE --- */
+        .toggle-container { display: flex; background: #1a1a1a; border-radius: 16px; padding: 2px; border: 1px solid #333; margin-left: auto; }
+        .toggle-item { padding: 2px 6px; font-size: 10px; font-weight: 700; color: #888; border-radius: 12px; cursor: pointer; user-select: none; transition: all 0.15s ease; }
         .toggle-item.active { background: var(--brand-green); color: white; }
+        .toggle-divider { width: 1px; height: 14px; background-color: #444; }
 
         /* --- DARK MATCH CARDS --- */
         .match-card { background: var(--bg-dark-card); margin: 10px 15px 15px; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         .match-header { display: flex; justify-content: space-between; font-size: 10px; color: #aaa; margin-bottom: 10px; }
-        .match-header .left { display: flex; align-items: center; gap: 6px; }
-        
         .match-body { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
         .team-row { display: flex; justify-content: space-between; color: #ccc; font-size: 13px; font-weight: 500; }
         .team-row .team-name { display: flex; align-items: center; gap: 8px; flex: 1; }
         .team-row .teams-info { display: flex; gap: 15px; color: #888; font-size: 12px; }
         .team-row .teams-info .score { color: #aaa; }
         .match-info { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #777; margin: 4px 0 12px; }
-        
         .odds-row { display: flex; gap: 10px; background: #1e1e20; margin: 0 -12px -12px; padding: 10px 12px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
         .odds-box { flex: 1; background: var(--bg-dark-card); border-radius: 4px; display: flex; flex-direction: column; align-items: center; padding: 6px 0; cursor: pointer; }
         .odds-box .num { font-size: 10px; color: #888; }
         .odds-box .odd { font-size: 14px; font-weight: 700; color: var(--brand-green); margin-top: 2px; }
 
-        /* --- FLOATING BETSLIP BUTTON (Fixed shape) --- */
+        /* --- FLOATING BETSLIP --- */
         .floating-btn { position: fixed; bottom: 85px; right: 15px; width: 50px; height: 50px; background: var(--brand-green); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(0, 151, 95, 0.3); z-index: 2000; cursor: pointer; }
         .floating-btn i { font-size: 16px; margin-top: 2px; }
         .floating-btn span { font-size: 8px; font-weight: 700; margin-top: 1px; }
         .floating-btn .badge { position: absolute; top: -4px; right: -4px; background: #d81b22; color: white; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; border: 1px solid white; }
 
-        /* --- ABSOLUTE BOTTOM MAIN NAV --- */
-        .bottom-main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-dark); padding: 8px 0 env(safe-area-inset-bottom); z-index: 2000; display: flex; justify-content: space-around; border-top: 1px solid #333; }
+        /* --- BOTTOM NAV --- */
+        .bottom-main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #1c1c1e; padding: 8px 0 env(safe-area-inset-bottom); z-index: 2000; display: flex; justify-content: space-around; border-top: 1px solid #333; }
         .main-nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #aaa; gap: 2px; padding-bottom: 4px; cursor: pointer; }
         .main-nav-item img, .main-nav-item i { height: 20px; object-fit: contain; margin-bottom: 2px; }
         .main-nav-item.active-red { color: white; border-bottom: 3px solid var(--brand-red); margin-bottom: -3px; }
         .main-nav-item.active-red img { filter: brightness(0) invert(1); }
+        .main-nav-item.active-red i { color: white; }
+
+        /* --- PERFECT ICON FIXES FOR AZ & GAMES --- */
+        .icon-home { height: 20px; object-fit: contain; mix-blend-mode: normal; }
+        /* This magical class removes white square backgrounds from AZ and Games */
+        .icon-white-square-removal { 
+            height: 20px; 
+            object-fit: contain; 
+            filter: invert(1); 
+            mix-blend-mode: screen; 
+        }
+        
+        /* Keep them clean when active */
+        .main-nav-item.active-red .icon-white-square-removal { 
+            filter: invert(1) brightness(1.2); 
+        }
     </style>
 </head>
 <body>
@@ -109,26 +119,21 @@
         <img src="https://s.sporty.net/global/main/modules/main/desktop/common/core/image/logo.598532697e.png" alt="SportyBet" class="logo-img">
         <div class="header-right">
             <i class="fas fa-search search-icon"></i>
-            <!-- Exact Balance Pill -->
-            <div class="balance-pill">
-                <i class="fas fa-user-circle"></i> GHS 6,845.00
-            </div>
+            <div class="balance-pill"><i class="fas fa-user-circle"></i> GHS 6,845.00</div>
         </div>
     </div>
 
-    <!-- SQUARE GAME CARDS -->
+    <!-- GAME CARDS -->
     <div class="game-cards">
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/3379712963ee77ad69fac61617581472.png"><span>Spin da<br>Bottle</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/d0839820d9f53131fa12f9583c909440.png"><span>Aviator</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/2fc2765aededb9e53005fde519029ec0.jpg"><span>Instant<br>Virtuals</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/2d960b7638f8a7816fe9c047b58b6f64.jpg"><span>Auto<br>Bet</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/18df80c874a4f270dd2eeba19b5fd986.jpg"><span>Lucky<br>Numbers</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/8feafd1ffb711c309df1bd3918c52f4d.jpg"><span>OneCut<br>EFL</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/299c1836dd112d884a8718abc0b5dff3.png"><span>LALIGA<br>Casino</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/10ad0427649f69093dc13b2dc25dda10.png"><span>Basketball</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/2628e9de3887f39bab509e85ffb7694b.png"><span>Dog<br>Racing</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/a5b7337f9b3ef1fb64ff927c5e1c3bcf.png"><span>Sports<br>Penalty</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/b848c36b4d15fdc056ca96d1bf3dfb9b.jpg"><span>SportySim</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/common/main/res/1fb1f9ff6d8417c80ebc28cef92bf970.png"><span>Spin da<br>Bottle</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/sportygames/lobby_banner/1648540402134.png"><span>Aviator</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/common/main/res/f9b5f1e24b0dc17d8799444dabe5e64a.png"><span>Red-Black</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/common/main/res/5c244dd872207dc67f92cb35b8cef7c3.png"><span>Super<br>Hero</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/sportygames/lobby_banner/1648540320127.png"><span>Mines</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/ke/main/res/20259a083389d1c732a19b81a86ed363.png"><span>Instant<br>Virtuals</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/cms/SIM_f35ab52fe3.png"><span>Sporty<br>SIM</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/cms/v_Football_3e1a145b06.png"><span>vFootball</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/ke/main/res/a9ec8f26dcccd14b136ec0c56ed1f782.png"><span>Golden<br>Virtuals</span></div>
     </div>
 
     <!-- TOP ICON NAV -->
@@ -141,7 +146,7 @@
         <div class="nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/sidePanelNav/img/more-dot.c90f5d29d4.svg">More</div>
     </div>
 
-    <!-- SUB TABS (With precise top colored lines) -->
+    <!-- SUB TABS -->
     <div class="sub-tabs">
         <div class="sub-tab active">TODAY'S<br>FOOTBALL</div>
         <div class="sub-tab gray-line">FOOTBALL<br>IN NEXT 3 HOURS</div>
@@ -166,7 +171,7 @@
         <div class="league-pill" style="padding:6px; border-radius:50%; width:30px; height:30px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/630c54e5b737d917d4a43e574fb8223f.png"></div>
     </div>
 
-    <!-- STICKY SCROLLING FILTERS -->
+    <!-- STICKY FILTERS -->
     <div class="sticky-filters">
         <div class="filter-item active-white">LIVE</div>
         <div class="filter-item active-green">Football</div>
@@ -181,16 +186,16 @@
         <div class="sub-filter-item">DC</div>
         <div class="sub-filter-item">1st Half O/U</div>
         <div class="sub-filter-item">Handicap</div>
-        <!-- ADDED IOS-STYLE TOGGLE SWITCH (1Up / 2Up) -->
         <div class="toggle-container">
             <div class="toggle-item active" onclick="toggleUp('1')">1Up</div>
+            <div class="toggle-divider"></div>
             <div class="toggle-item" onclick="toggleUp('2')">2Up</div>
         </div>
     </div>
 
-    <!-- SCROLLABLE LIVE MATCHES -->
+    <!-- SCROLLABLE MATCHES -->
     <div class="match-card">
-        <div class="match-header"><div class="left"><span style="color:#d81b22;font-weight:700;">81:59</span> International Clubs - UEFA Champions League Women</div><i class="fas fa-chart-line" style="color:#555;"></i></div>
+        <div class="match-header"><div><span style="color:#d81b22;font-weight:700;">81:59</span> International Clubs - UEFA</div><i class="fas fa-chart-line" style="color:#555;"></i></div>
         <div class="match-body">
             <div class="team-row"><div class="team-name"><span>Ferencvarosi Bu...</span></div><div class="teams-info"><span class="score">1</span></div></div>
             <div class="team-row"><div class="team-name"><span>KFF Mitrovica</span></div><div class="teams-info"><span class="score">2</span></div></div>
@@ -204,7 +209,7 @@
     </div>
 
     <div class="match-card">
-        <div class="match-header"><div class="left"><span style="color:#d81b22;font-weight:700;">41:12</span> International Clubs - UEFA Champions League Women</div><i class="fas fa-chart-line" style="color:#555;"></i></div>
+        <div class="match-header"><div><span style="color:#d81b22;font-weight:700;">41:12</span> International Clubs - UEFA</div><i class="fas fa-chart-line" style="color:#555;"></i></div>
         <div class="match-body">
             <div class="team-row"><div class="team-name"><span>ZNK Mura</span></div><div class="teams-info"><span class="score">0</span></div></div>
             <div class="team-row"><div class="team-name"><span>ZNK Hajduk Split</span></div><div class="teams-info"><span class="score">0</span></div></div>
@@ -224,39 +229,46 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM MAIN NAV -->
+    <!-- BOTTOM NAV (100% PERFECTED ICONS) -->
     <div class="bottom-main-nav">
+        <!-- Home: White on transparent, no filters needed -->
         <div class="main-nav-item active-red">
-            <!-- FIXED BASE64 HOME ICON (Now shows correctly) -->
-            <img src="data:image/png;base64,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" alt="Home">
+            <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home" alt="Home">
             Home
         </div>
-        <div class="main-nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/sidePanelNav/img/more-dot.c90f5d29d4.svg">AZ Menu</div>
-        <div class="main-nav-item"><img src="https://s.sporty.net/common/main/res/1621c20e9a0a813a09486e61912371c5.png">Games</div>
-        <div class="main-nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png">Open Bets</div>
-        <div class="main-nav-item"><i class="fas fa-user" style="font-size:18px;"></i> Me</div>
+        
+        <!-- AZ Menu: Black on white square, we use .icon-white-square-removal -->
+        <div class="main-nav-item">
+            <img src="https://jblpro.com/jblpro-performance-software-user-manual/content/resources/images/menu_icon.png" class="icon-white-square-removal" alt="AZ Menu">
+            AZ Menu
+        </div>
+        
+        <!-- Games: Black on white square, we use .icon-white-square-removal -->
+        <div class="main-nav-item">
+            <img src="https://pbs.twimg.com/profile_images/1983120419482681344/CplonpXY_bigger.jpg" class="icon-white-square-removal" alt="Games">
+            Games
+        </div>
+        
+        <!-- Open Bets: PNG with transparent background -->
+        <div class="main-nav-item">
+            <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" alt="Open Bets">
+            Open Bets
+        </div>
+        
+        <div class="main-nav-item">
+            <i class="fas fa-user" style="font-size:18px;"></i> Me
+        </div>
     </div>
 
     <script>
         let betslipCount = 0;
         const badge = document.getElementById('betslip-count');
-        function addBet() {
-            betslipCount++;
-            badge.innerText = betslipCount;
-        }
-
-        // Function to toggle the 1Up / 2Up switch
+        function addBet() { betslipCount++; badge.innerText = betslipCount; }
         function toggleUp(selected) {
-            const oneUp = document.querySelector('.toggle-item:first-child');
-            const twoUp = document.querySelector('.toggle-item:last-child');
-            
-            if (selected === '1') {
-                oneUp.classList.add('active');
-                twoUp.classList.remove('active');
-            } else {
-                twoUp.classList.add('active');
-                oneUp.classList.remove('active');
-            }
+            const items = document.querySelectorAll('.toggle-item');
+            items.forEach(el => el.classList.remove('active'));
+            if (selected === '1') items[0].classList.add('active');
+            else items[1].classList.add('active');
         }
     </script>
 </body>
