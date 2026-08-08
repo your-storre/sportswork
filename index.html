@@ -91,25 +91,19 @@
         /* --- BOTTOM NAV --- */
         .bottom-main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #1c1c1e; padding: 8px 0 env(safe-area-inset-bottom); z-index: 2000; display: flex; justify-content: space-around; border-top: 1px solid #333; }
         .main-nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #aaa; gap: 2px; padding-bottom: 4px; cursor: pointer; }
-        .main-nav-item img, .main-nav-item i { height: 20px; object-fit: contain; margin-bottom: 2px; }
+        .main-nav-item img, .main-nav-item i { object-fit: contain; margin-bottom: 2px; }
         .main-nav-item.active-red { color: white; border-bottom: 3px solid var(--brand-red); margin-bottom: -3px; }
         .main-nav-item.active-red img { filter: brightness(0) invert(1); }
         .main-nav-item.active-red i { color: white; }
 
-        /* --- PERFECT ICON FIXES FOR AZ & GAMES --- */
-        .icon-home { height: 20px; object-fit: contain; mix-blend-mode: normal; }
-        /* This magical class removes white square backgrounds from AZ and Games */
-        .icon-white-square-removal { 
-            height: 20px; 
-            object-fit: contain; 
-            filter: invert(1); 
-            mix-blend-mode: screen; 
-        }
-        
-        /* Keep them clean when active */
-        .main-nav-item.active-red .icon-white-square-removal { 
-            filter: invert(1) brightness(1.2); 
-        }
+        /* --- BOTTOM NAV SIZES --- */
+        /* Home icon - Enlarged to match the screenshot */
+        .icon-home { height: 26px; width: 26px; mix-blend-mode: normal; }
+        /* Standard size for the other icons */
+        .icon-standard { height: 20px; object-fit: contain; margin-bottom: 2px; }
+        /* Magical class to remove white square backgrounds from Games */
+        .icon-white-square-removal { height: 20px; object-fit: contain; filter: invert(1); mix-blend-mode: screen; }
+        .main-nav-item.active-red .icon-white-square-removal { filter: invert(1) brightness(1.2); }
     </style>
 </head>
 <body>
@@ -229,29 +223,29 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM NAV (100% PERFECTED ICONS) -->
+    <!-- BOTTOM NAV (Only Home icon is enlarged, others are standard size) -->
     <div class="bottom-main-nav">
-        <!-- Home: White on transparent, no filters needed -->
+        <!-- Home: Enlarged to 26px (Noticeably larger than the rest) -->
         <div class="main-nav-item active-red">
             <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home" alt="Home">
             Home
         </div>
         
-        <!-- AZ Menu: Black on white square, we use .icon-white-square-removal -->
+        <!-- AZ Menu: Returned to standard 20px size -->
         <div class="main-nav-item">
-            <img src="https://jblpro.com/jblpro-performance-software-user-manual/content/resources/images/menu_icon.png" class="icon-white-square-removal" alt="AZ Menu">
+            <i class="fas fa-bars" style="font-size: 20px;"></i>
             AZ Menu
         </div>
         
-        <!-- Games: Black on white square, we use .icon-white-square-removal -->
+        <!-- Games: Returned to standard 20px size -->
         <div class="main-nav-item">
             <img src="https://pbs.twimg.com/profile_images/1983120419482681344/CplonpXY_bigger.jpg" class="icon-white-square-removal" alt="Games">
             Games
         </div>
         
-        <!-- Open Bets: PNG with transparent background -->
+        <!-- Open Bets: Returned to standard 20px size -->
         <div class="main-nav-item">
-            <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" alt="Open Bets">
+            <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" class="icon-standard" alt="Open Bets">
             Open Bets
         </div>
         
