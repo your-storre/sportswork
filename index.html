@@ -93,61 +93,70 @@
             position: fixed; 
             bottom: 0; left: 0; width: 100%; 
             background: #1c1c1e; 
-            padding: 8px 0 env(safe-area-inset-bottom); 
+            padding: 6px 0 env(safe-area-inset-bottom); 
             z-index: 2000; 
             display: flex; 
             justify-content: space-around; 
             border-top: 1px solid #333; 
         }
         
-        /* MAIN NAV ITEM - consistent icon size, text on same line */
+        /* MAIN NAV ITEM – uses flex-end to lock all text to the same bottom line */
         .main-nav-item { 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            justify-content: center; 
-            gap: 3px;                     /* space between icon and text */
+            justify-content: flex-end;   /* text at the bottom, icon above */
+            height: 52px;                /* fixed height ensures uniform baseline */
             font-size: 10px; 
             color: #aaa; 
+            gap: 2px; 
+            padding-bottom: 4px; 
             cursor: pointer; 
             min-width: 50px;
-            padding-bottom: 2px; 
-            transition: color 0.2s;
         }
         
         /* Active state */
         .main-nav-item.active-red { 
             color: white; 
             border-bottom: 3px solid var(--brand-red); 
-            padding-bottom: 0;           /* compensate border */
+            padding-bottom: 1px;        /* compensate border */
+            margin-bottom: -3px;       /* visual height consistency */
         }
         .main-nav-item.active-red img { filter: brightness(0) invert(1); }
         .main-nav-item.active-red i { color: white; }
 
-        /* Standard icon size (20px) for all bottom nav icons */
+        /* ICON SIZES */
+        /* Standard icons (AZ Menu, Open Bets, Me) – 20px */
         .icon-nav-icon { 
             height: 20px; 
             width: auto; 
             object-fit: contain; 
         }
         
-        /* Games icon: 20px, white background removed, purple preserved */
-        .icon-games { 
-            height: 20px; 
-            width: auto; 
-            object-fit: contain; 
-            mix-blend-mode: screen; 
-            filter: brightness(1.2); 
-        }
-        .main-nav-item.active-red .icon-games { 
-            filter: brightness(0) invert(1); 
-        }
-        
-        /* Font Awesome icon sizing */
+        /* Font Awesome icons sizing (AZ Menu and Me) */
         .main-nav-item i.fa-bars,
         .main-nav-item i.fa-user {
             font-size: 20px;
             line-height: 1;
+        }
+        
+        /* Home icon – larger (28px) */
+        .icon-home-big { 
+            height: 28px; 
+            width: auto; 
+            object-fit: contain; 
+        }
+        
+        /* Games icon – NOW MATCHES HOME AT 28px (enlarged) */
+        .icon-games-big { 
+            height: 28px;               /* same size as Home */
+            width: auto; 
+            object-fit: contain; 
+            mix-blend-mode: screen; 
+            filter: brightness(1.2);
+        }
+        .main-nav-item.active-red .icon-games-big { 
+            filter: brightness(0) invert(1); 
         }
     </style>
 </head>
@@ -268,33 +277,33 @@
         <span>BETSLIP</span>
     </div>
 
-    <!-- BOTTOM NAV (All icons 20px, text aligned) -->
+    <!-- BOTTOM NAV (Home and Games both 28px, text aligned) -->
     <div class="bottom-main-nav">
-        <!-- Home: 20px icon -->
+        <!-- Home: 28px icon -->
         <div class="main-nav-item active-red">
-            <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-nav-icon" alt="Home">
+            <img src="https://res.cloudinary.com/dc1o7ti5p/image/upload/v1701782888/samples/finn_website_test/landingPage/clients_logo/bf296mm3qscqpeira5pn.png" class="icon-home-big" alt="Home">
             Home
         </div>
         
-        <!-- AZ Menu: 20px bars icon -->
+        <!-- AZ Menu: standard 20px bars -->
         <div class="main-nav-item">
             <i class="fas fa-bars"></i>
             AZ Menu
         </div>
         
-        <!-- Games: 20px, white background removed, purple preserved -->
+        <!-- Games: now 28px, white background removed, purple preserved -->
         <div class="main-nav-item">
-            <img src="https://i.ibb.co/27MPPNc5/a9eff99e-4275-4f0b-ae7f-774b5cb64313.png" class="icon-games" alt="Games">
+            <img src="https://i.ibb.co/27MPPNc5/a9eff99e-4275-4f0b-ae7f-774b5cb64313.png" class="icon-games-big" alt="Games">
             Games
         </div>
         
-        <!-- Open Bets: 20px -->
+        <!-- Open Bets: standard 20px -->
         <div class="main-nav-item">
             <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" class="icon-nav-icon" alt="Open Bets">
             Open Bets
         </div>
         
-        <!-- Me: 20px user icon -->
+        <!-- Me: standard 20px user icon -->
         <div class="main-nav-item">
             <i class="fas fa-user"></i>
             Me
