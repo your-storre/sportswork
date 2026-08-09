@@ -6,97 +6,702 @@
     <title>SportyBet App</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: #f5f5f5; padding-bottom: calc(155px + env(safe-area-inset-bottom)); font-family: 'Roboto', sans-serif; }
-        
-        :root { --brand-red: #d81b22; --brand-green: #00975f; --bg-dark: #222326; --bg-dark-card: #2c2d30; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #f5f5f5;
+            padding-bottom: calc(155px + env(safe-area-inset-bottom));
+            font-family: 'Roboto', sans-serif;
+        }
+
+        :root {
+            --brand-red: #d81b22;
+            --brand-green: #00975f;
+            --bg-dark: #222326;
+            --bg-dark-card: #2c2d30;
+            --line: #e7e7e7;
+        }
 
         /* --- HEADER --- */
-        .header { position: fixed; top: 0; left: 0; width: 100%; height: 58px; background: var(--brand-red); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .logo-img { height: 24px; object-fit: contain; }
-        .header-right { display: flex; gap: 10px; align-items: center; }
-        .search-icon { color: white; font-size: 18px; cursor: pointer; }
-        .balance-pill { background: var(--brand-red); border: 2px solid white; border-radius: 4px; padding: 4px 10px; display: flex; align-items: center; gap: 6px; color: white; font-weight: 700; font-size: 11px; height: 34px; }
-        .balance-pill i { font-size: 14px; }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 58px;
+            background: var(--brand-red);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logo-img {
+            height: 24px;
+            object-fit: contain;
+        }
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-icon {
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        /* BALANCE PILL – SQUARE, no border-radius */
+        .balance-pill {
+            background: var(--brand-red);
+            border: 1.5px solid white;
+            border-radius: 0;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .balance-pill i {
+            font-size: 15px;
+        }
 
-        /* --- TOP GAME CARDS (FULLY RESTORED) --- */
-        .game-cards { background: white; padding: 12px 0 12px 15px; display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; margin-top: 58px; border-bottom: 8px solid #f5f5f5; }
-        .game-cards::-webkit-scrollbar { display: none; }
-        .game-card { min-width: 65px; width: 65px; height: 65px; border-radius: 10px; padding: 4px; display: flex; flex-direction: column; justify-content: flex-end; color: white; font-weight: 700; font-size: 9px; position: relative; overflow: hidden; cursor: pointer; background: #222; }
-        .game-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-        .game-card span { position: relative; z-index: 1; line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+        /* --- SQUARE GAME CARDS --- */
+        .game-cards {
+            background: white;
+            padding: 12px 0 12px 15px;
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            margin-top: 58px;
+            border-bottom: 8px solid #f5f5f5;
+        }
+        .game-cards::-webkit-scrollbar {
+            display: none;
+        }
+        .game-card {
+            min-width: 65px;
+            width: 65px;
+            height: 65px;
+            border-radius: 10px;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+            font-weight: 700;
+            font-size: 9px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .game-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .game-card span {
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
 
         /* --- TOP ICON NAV --- */
-        .icon-nav { background: white; display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 8px solid #f5f5f5; overflow-x: auto; }
-        .icon-nav::-webkit-scrollbar { display: none; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: #222; gap: 4px; font-weight: 600; cursor: pointer; min-width: 42px; }
-        .nav-item img { height: 20px; width: 20px; object-fit: contain; }
+        .icon-nav {
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 8px solid #f5f5f5;
+            overflow-x: auto;
+        }
+        .icon-nav::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #222;
+            gap: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            min-width: 42px;
+        }
+        .nav-item img {
+            height: 20px;
+            width: 20px;
+            object-fit: contain;
+        }
 
-        /* --- SUB TABS --- */
-        .sub-tabs { background: white; display: flex; padding: 0; }
-        .sub-tab { flex: 1; text-align: center; padding: 14px 5px; font-size: 11px; font-weight: 700; color: #222; border-top: 3px solid transparent; border-bottom: 3px solid transparent; cursor: pointer; }
-        .sub-tab.red-top { border-top: 3px solid var(--brand-red); }
-        .sub-tab.gray-top { border-top: 3px solid #aaa; }
-        .sub-tab.green-top { border-top: 3px solid var(--brand-green); }
+        /* --- SUB TABS - RED LINE AT TOP OF EUROPA LEAGUE --- */
+        .sub-tabs {
+            background: white;
+            display: flex;
+            padding: 0;
+            border-bottom: 1px solid #eee;
+        }
+        .sub-tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px 5px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #222;
+            border-top: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            line-height: 1.3;
+        }
+        .sub-tab.active-top-red {
+            border-top-color: var(--brand-red);
+        }
+        .sub-tab.gray-line {
+            border-top-color: #aaa;
+        }
+        .sub-tab.green-line {
+            border-top-color: var(--brand-green);
+        }
 
         /* --- MAIN TABS --- */
-        .main-tabs { background: white; display: flex; padding: 10px 15px; gap: 20px; align-items: center; border-bottom: 1px solid #eee; }
-        .main-tab { font-size: 15px; font-weight: 700; color: #888; padding-bottom: 4px; border-bottom: 2px solid transparent; cursor: pointer; }
-        .main-tab.active { color: var(--brand-green); border-bottom: 2px solid var(--brand-green); }
+        .main-tabs {
+            background: white;
+            display: flex;
+            padding: 10px 15px;
+            gap: 20px;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .main-tab {
+            font-size: 15px;
+            font-weight: 700;
+            color: #888;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+        .main-tab.active {
+            color: var(--brand-green);
+            border-bottom: 2px solid var(--brand-green);
+        }
 
         /* --- LEAGUE PILLS --- */
-        .league-wrapper { padding: 15px 15px 5px; background: white; border-bottom: 8px solid #f5f5f5; display: flex; overflow-x: auto; gap: 10px; }
-        .league-wrapper::-webkit-scrollbar { display: none; }
-        .league-pill { background: white; border: 1px solid #ddd; border-radius: 50px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #222; white-space: nowrap; }
-        .league-pill img { height: 16px; width: 16px; object-fit: contain; border-radius: 50%; }
+        .league-wrapper {
+            padding: 15px 15px 5px;
+            background: white;
+            border-bottom: 8px solid #f5f5f5;
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+        }
+        .league-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .league-pill {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #222;
+            white-space: nowrap;
+        }
+        .league-pill img {
+            height: 16px;
+            width: 16px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
 
-        /* --- STICKY FILTERS --- */
-        .sticky-filters { position: sticky; top: 58px; z-index: 999; background: var(--bg-dark); display: flex; justify-content: space-around; padding: 8px 10px; border-top: 1px solid #333; border-bottom: 1px solid #333; }
-        .sticky-sub-filters { position: sticky; top: 96px; z-index: 999; background: white; display: flex; overflow-x: auto; padding: 6px 15px; gap: 20px; border-bottom: 1px solid #eee; align-items: center; }
-        .sticky-sub-filters::-webkit-scrollbar { display: none; }
-        
-        .filter-item { font-size: 12px; font-weight: 700; color: #aaa; padding-bottom: 3px; cursor: pointer; }
-        .filter-item.active-green { color: var(--brand-green); border-bottom: 3px solid var(--brand-green); }
-        .filter-item.active-white { color: white; border-bottom: 3px solid white; }
-        .sub-filter-item { font-size: 12px; font-weight: 600; color: #666; white-space: nowrap; padding-bottom: 4px; cursor: pointer; }
-        .sub-filter-item.active { color: var(--brand-green); border-bottom: 2px solid var(--brand-green); }
+        /* ============================================================
+           MATCH CARDS – WIDER (rectangular, stretched)
+           ============================================================ */
+        .match-cards {
+            display: flex;
+            gap: 10px;
+            padding: 0 16px 16px;
+            overflow-x: auto;
+        }
+        .match-cards::-webkit-scrollbar {
+            display: none;
+        }
+        .match-card {
+            flex: 0 0 auto;
+            width: 340px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .mc-league {
+            background: #fafafa;
+            border-bottom: 1px solid var(--line);
+            padding: 10px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand-green);
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+        .mc-league .sub {
+            font-weight: 400;
+            color: #777;
+            text-transform: none;
+        }
+        .mc-body {
+            padding: 12px 12px 14px;
+        }
+        .mc-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .mc-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            width: 85px;
+        }
+        .mc-team .crest {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .mc-team .name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .mc-mid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .mc-mid .time {
+            font-size: 11px;
+            font-weight: 700;
+            color: #111;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+        .mc-mid .vs {
+            font-size: 10px;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 0.5px;
+        }
+        .mc-odds {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        /* ODDS BUTTONS – with visible border */
+        .odd-btn {
+            flex: 1;
+            background: #e5f7ec;
+            border-radius: 4px;
+            text-align: center;
+            padding: 8px 2px;
+            cursor: pointer;
+            transition: background 0.1s;
+            border: 1.5px solid var(--brand-green);
+        }
+        .odd-btn:active {
+            background: #d0ebda;
+            border-color: #006644;
+        }
+        .odd-btn .lbl {
+            font-size: 9px;
+            color: #555;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .odd-btn .val {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--brand-green);
+            margin-top: 1px;
+        }
+        .mc-extra {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+        }
+        .mc-extra .extra-item {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #444;
+        }
+        .mc-extra .extra-item .val {
+            color: var(--brand-green);
+            font-weight: 800;
+        }
 
-        /* --- 1UP / 2UP ICON --- */
-        .toggle-container { display: flex; align-items: center; margin-left: auto; }
-        .up-down-icon { height: 80px; width: auto; object-fit: contain; cursor: pointer; }
+        /* ============================================================
+           LIVE SECTION – LIVE text is same color as others (no red)
+           ============================================================ */
+        .live-section {
+            background: var(--bg-dark);
+            color: #fff;
+            margin-top: 6px;
+            padding-bottom: 6px;
+        }
 
-        /* --- DARK MATCH CARDS --- */
-        .match-card-dark { background: var(--bg-dark-card); margin: 10px 15px 15px; border-radius: 8px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .match-header-dark { display: flex; justify-content: space-between; font-size: 10px; color: #aaa; margin-bottom: 10px; }
-        .match-body-dark { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-        .team-row-dark { display: flex; justify-content: space-between; align-items: center; color: #ccc; font-size: 13px; font-weight: 500; padding: 2px 0; }
-        .team-row-dark .team-name { display: flex; align-items: center; gap: 8px; flex: 1; }
-        .team-row-dark .teams-info { display: flex; gap: 15px; align-items: center; }
-        .team-row-dark .teams-info .score { color: #aaa; width: 15px; text-align: right; }
-        .team-row-dark .teams-info .odd-val { font-size: 14px; font-weight: 700; color: var(--brand-green); min-width: 30px; text-align: center; }
-        .match-info-dark { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #777; margin: 4px 0 8px; }
-        .odds-row-dark { display: flex; gap: 10px; background: #1e1e20; margin: 0 -12px -12px; padding: 10px 12px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+        .live-tabs {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px 10px;
+            border-bottom: 1px solid #2b2f36;
+            gap: 4px;
+        }
+        .live-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        /* LIVE is now gray like the others, no red */
+        .live-badge {
+            font-size: 14px;
+            font-weight: 700;
+            color: #9aa0a8;   /* same as inactive tabs */
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+        .live-tabs .t {
+            flex: 1;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #9aa0a8;
+            white-space: nowrap;
+            cursor: pointer;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .live-tabs .t.active {
+            color: var(--brand-green);
+            border-bottom-color: var(--brand-green);
+        }
 
-        /* --- FLOATING BETSLIP --- */
-        .floating-btn { position: fixed; bottom: 90px; right: 15px; width: 54px; height: 54px; background: var(--brand-green); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(0, 151, 95, 0.3); z-index: 2000; cursor: pointer; }
-        .floating-btn i { font-size: 18px; }
-        .floating-btn span { font-size: 8px; font-weight: 700; margin-top: 2px; }
-        .floating-btn .badge { position: absolute; top: -4px; right: -4px; background: #d81b22; color: white; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; border: 2px solid white; }
+        /* Market tabs */
+        .market-tabs {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px 6px;
+            border-bottom: 1px solid #2b2f36;
+            gap: 4px;
+        }
+        .market-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        .market-tabs .m {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #9aa0a8;
+            white-space: nowrap;
+            padding-bottom: 6px;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+        .market-tabs .m.active {
+            color: #fff;
+            border-bottom-color: var(--brand-green);
+        }
+
+        /* Divider – thin and short */
+        .market-divider {
+            flex: 0 0 1px;
+            height: 18px;
+            background: #555;
+            margin: 0 6px 0 4px;
+        }
+
+        /* 1UP/2UP icon */
+        .toggle-icon {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            margin-left: 2px;
+        }
+        .up-down-icon {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        /* Column headers */
+        .col-headers {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 8px 16px 4px;
+            color: #6b7178;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .col-headers span {
+            width: 78px;
+            text-align: center;
+        }
+
+        /* Live match rows */
+        .live-match {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2b2f36;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .live-match:last-of-type {
+            border-bottom: none;
+        }
+
+        .lm-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11.5px;
+            color: #6b7178;
+        }
+        .lm-top .clock {
+            color: var(--brand-green);
+            font-weight: 700;
+        }
+        .lm-top .graph {
+            margin-left: auto;
+            color: #6b7178;
+        }
+
+        .lm-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lm-teams {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .lm-team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .lm-team .score {
+            margin-left: auto;
+            color: #9aa0a8;
+            font-weight: 700;
+            width: 14px;
+            text-align: right;
+        }
+
+        .lm-odds {
+            display: flex;
+            gap: 8px;
+        }
+        .odd-dark {
+            width: 78px;
+            background: #1e2228;
+            border-radius: 4px;
+            text-align: center;
+            padding: 10px 4px;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--brand-green);
+            cursor: pointer;
+            border: 1.5px solid #3a3f48;
+            transition: border 0.1s, background 0.1s;
+        }
+        .odd-dark:active {
+            background: #2f353e;
+            border-color: var(--brand-green);
+        }
+        .odd-dark.blue-odd {
+            color: #42a5f5;
+        }
+        .odd-dark.red-odd {
+            color: #ef5350;
+        }
+
+        .lm-more {
+            font-size: 11.5px;
+            color: #6b7178;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        .lm-more:hover {
+            color: #9aa0a8;
+        }
+
+        /* --- FLOATING BETSLIP (circular) --- */
+        .floating-btn {
+            position: fixed;
+            bottom: 85px;
+            right: 15px;
+            width: 56px;
+            height: 56px;
+            background: var(--brand-green);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 151, 95, 0.3);
+            z-index: 2000;
+            cursor: pointer;
+        }
+        .floating-btn i {
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        .floating-btn span {
+            font-size: 8px;
+            font-weight: 700;
+            margin-top: 1px;
+            letter-spacing: 0.3px;
+        }
+        .floating-btn .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #d81b22;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            border: 2px solid white;
+        }
 
         /* --- BOTTOM NAV --- */
-        .bottom-main-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #1c1c1e; padding: 6px 0 env(safe-area-inset-bottom); z-index: 2000; display: flex; justify-content: space-around; border-top: 1px solid #333; }
-        .main-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 56px; font-size: 10px; color: #aaa; gap: 3px; padding-bottom: 4px; cursor: pointer; min-width: 50px; }
-        .main-nav-item.active-red { color: white; border-bottom: 3px solid var(--brand-red); padding-bottom: 1px; margin-bottom: -3px; }
-        .icon-nav-icon { height: 20px; width: auto; object-fit: contain; }
-        .main-nav-item i { font-size: 20px; line-height: 1; }
-        
-        .icon-clip-wrapper { display: inline-block; height: 30px; overflow: hidden; line-height: 0; }
-        .icon-clip-wrapper img { display: block; height: 36px; width: auto; object-fit: contain; object-position: top; }
-        .icon-games-clipped { mix-blend-mode: screen; filter: brightness(1.2); }
-        .main-nav-item.active-red .icon-clip-wrapper img { filter: brightness(0) invert(1); }
-        .main-nav-item.active-red .icon-games-clipped { mix-blend-mode: normal; }
+        .bottom-main-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1c1c1e;
+            padding: 6px 0 env(safe-area-inset-bottom);
+            z-index: 2000;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #333;
+        }
+
+        .main-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 56px;
+            font-size: 10px;
+            color: #aaa;
+            gap: 3px;
+            padding-bottom: 4px;
+            cursor: pointer;
+            min-width: 50px;
+            position: relative;
+        }
+
+        .main-nav-item.active-red {
+            color: white;
+            border-bottom: 3px solid var(--brand-red);
+            padding-bottom: 1px;
+            margin-bottom: -3px;
+        }
+
+        .icon-nav-icon {
+            height: 20px;
+            width: auto;
+            object-fit: contain;
+        }
+        .main-nav-item i.fa-bars,
+        .main-nav-item i.fa-user {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .icon-clip-wrapper {
+            display: inline-block;
+            height: 30px;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .icon-clip-wrapper img {
+            display: block;
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            object-position: top;
+        }
+
+        .icon-home-clipped {}
+        .icon-games-clipped {
+            mix-blend-mode: screen;
+            filter: brightness(1.2);
+        }
+        .main-nav-item.active-red .icon-clip-wrapper img {
+            filter: brightness(0) invert(1);
+        }
+        .main-nav-item.active-red .icon-games-clipped {
+            mix-blend-mode: normal;
+        }
+
+        .nav-badge-dot {
+            position: absolute;
+            top: 2px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            background: var(--brand-red);
+            border-radius: 50%;
+            border: 1px solid #1c1c1e;
+        }
     </style>
 </head>
 <body>
@@ -110,11 +715,9 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- FULLY RESTORED TOP GAME CARDS (11 ICONS)    -->
-    <!-- ========================================== -->
+    <!-- GAME CARDS -->
     <div class="game-cards">
-        <div class="game-card"><img src="https://s.sporty.net/common/main/res/3379712963ee77ad69fac61617581472.png"><span>Spin da<br>Bottle</span></div>
+        <div class="game-card"><img src="https://s.sporty.net/common/main/res/1fb1f9ff6d8417c80ebc28cef92bf970.png"><span>Spin da<br>Bottle</span></div>
         <div class="game-card"><img src="https://s.sporty.net/sportygames/lobby_banner/1648540402134.png"><span>Aviator</span></div>
         <div class="game-card"><img src="https://s.sporty.net/common/main/res/f9b5f1e24b0dc17d8799444dabe5e64a.png"><span>Red-Black</span></div>
         <div class="game-card"><img src="https://s.sporty.net/common/main/res/5c244dd872207dc67f92cb35b8cef7c3.png"><span>Super<br>Hero</span></div>
@@ -123,8 +726,6 @@
         <div class="game-card"><img src="https://s.sporty.net/cms/SIM_f35ab52fe3.png"><span>Sporty<br>SIM</span></div>
         <div class="game-card"><img src="https://s.sporty.net/cms/v_Football_3e1a145b06.png"><span>vFootball</span></div>
         <div class="game-card"><img src="https://s.sporty.net/ke/main/res/a9ec8f26dcccd14b136ec0c56ed1f782.png"><span>Golden<br>Virtuals</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/cms/ic_feature_scheduled_football_068a5c8f0a.svg"><span>Scheduled<br>Football</span></div>
-        <div class="game-card"><img src="https://s.sporty.net/cms/Logo_39s_c4afefb490.png"><span>UK 39's</span></div>
     </div>
 
     <!-- TOP ICON NAV -->
@@ -137,12 +738,12 @@
         <div class="nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/sidePanelNav/img/more-dot.c90f5d29d4.svg">More</div>
     </div>
 
-    <!-- SUB TABS -->
+    <!-- SUB TABS – RED LINE AT TOP OF EUROPA LEAGUE -->
     <div class="sub-tabs">
-        <div class="sub-tab gray-top">TODAY'S<br>FOOTBALL</div>
-        <div class="sub-tab gray-top">FOOTBALL<br>IN NEXT 3 HOURS</div>
-        <div class="sub-tab green-top">CHAMPIONS<br>LEAGUE</div>
-        <div class="sub-tab red-top">EUROPA<br>LEAGUE</div>
+        <div class="sub-tab">TODAY'S<br>FOOTBALL</div>
+        <div class="sub-tab gray-line">FOOTBALL<br>IN NEXT 3 HOURS</div>
+        <div class="sub-tab green-line">CHAMPIONS<br>LEAGUE</div>
+        <div class="sub-tab active-top-red">EUROPA<br>LEAGUE</div>
     </div>
 
     <!-- MAIN TABS -->
@@ -162,71 +763,142 @@
         <div class="league-pill" style="padding:6px; border-radius:50%; width:30px; height:30px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/630c54e5b737d917d4a43e574fb8223f.png"></div>
     </div>
 
-    <!-- STICKY FILTERS -->
-    <div class="sticky-filters">
-        <div class="filter-item active-white">LIVE</div>
-        <div class="filter-item active-green">Football</div>
-        <div class="filter-item">vFootball</div>
-        <div class="filter-item">Basketball</div>
-        <div class="filter-item">Tennis</div>
+    <!-- ============================================================
+         MATCH CARDS – WIDER (340px) RECTANGULAR
+         ============================================================ -->
+    <div class="match-cards">
+        <div class="match-card">
+            <div class="mc-league">Football – International Clubs <span class="sub">| Club Friendly Games</span></div>
+            <div class="mc-body">
+                <div class="mc-teams">
+                    <div class="mc-team"><div class="crest">🟢</div><div class="name">Ferencvarosi</div></div>
+                    <div class="mc-mid"><div class="time">17:00 | 08/08</div><div class="vs">1X2</div></div>
+                    <div class="mc-team"><div class="crest">⚪</div><div class="name">Real Madrid</div></div>
+                </div>
+                <div class="mc-odds">
+                    <div class="odd-btn"><div class="lbl">1</div><div class="val">10.50</div></div>
+                    <div class="odd-btn"><div class="lbl">X</div><div class="val">6.40</div></div>
+                    <div class="odd-btn"><div class="lbl">2</div><div class="val">1.25</div></div>
+                </div>
+                <div class="mc-extra">
+                    <div class="extra-item"><span>1</span><span class="val">2.90</span></div>
+                    <div class="extra-item"><span>2</span><span class="val">1.25</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="match-card">
+            <div class="mc-league">Football – International Clubs <span class="sub">| Club Friendly Games</span></div>
+            <div class="mc-body">
+                <div class="mc-teams">
+                    <div class="mc-team"><div class="crest">⚫</div><div class="name">Juventus</div></div>
+                    <div class="mc-mid"><div class="time">19:30 | 08/08</div><div class="vs">1X2</div></div>
+                    <div class="mc-team"><div class="crest">🔵</div><div class="name">Al Hilal</div></div>
+                </div>
+                <div class="mc-odds">
+                    <div class="odd-btn"><div class="lbl">1</div><div class="val">2.90</div></div>
+                    <div class="odd-btn"><div class="lbl">X</div><div class="val">3.40</div></div>
+                    <div class="odd-btn"><div class="lbl">2</div><div class="val">2.35</div></div>
+                </div>
+                <div class="mc-extra">
+                    <div class="extra-item"><span>1</span><span class="val">2.90</span></div>
+                    <div class="extra-item"><span>2</span><span class="val">2.35</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="sticky-sub-filters">
-        <div class="sub-filter-item active">1X2</div>
-        <div class="sub-filter-item">O/U</div>
-        <div class="sub-filter-item">DC</div>
-        <div class="sub-filter-item">1st Half O/U</div>
-        <div class="toggle-container">
-            <!-- RESTORED 1UP/2UP IMAGE -->
-            <img src="https://i.ibb.co/7dBg76W5/4bb6723f-e014-46e7-b400-55bcb7e0bf9b.png" class="up-down-icon" alt="1Up/2Up">
-        </div>
-    </div>
+    <!-- ============================================================
+         LIVE SECTION – LIVE text is now gray, same as others
+         ============================================================ -->
+    <div class="live-section">
 
-    <!-- SCROLLABLE MATCHES -->
-    <div class="match-card-dark">
-        <div class="match-header-dark">
-            <div><span style="color:#d81b22;font-weight:700;">81:59</span> International Clubs - UEFA Champions League Women</div>
-            <i class="fas fa-chart-line" style="color:#555;"></i>
+        <div class="live-tabs">
+            <span class="live-badge">LIVE</span>
+            <span class="t active">Football</span>
+            <span class="t">vFootball</span>
+            <span class="t">Basketball</span>
+            <span class="t">Tennis</span>
         </div>
-        <div class="match-body-dark">
-            <div class="team-row-dark">
-                <div class="team-name"><span>Ferencvarosi Bu...</span></div>
-                <div class="teams-info"><span class="score">1</span><span class="odd-val">1.75</span></div>
-            </div>
-            <div class="team-row-dark">
-                <div class="team-name"><span>KFF Mitrovica</span></div>
-                <div class="teams-info"><span class="score">2</span><span class="odd-val">2.10</span></div>
-            </div>
-            <div class="match-info-dark"><span>+ 5 ></span></div>
-        </div>
-        <div class="odds-row-dark">
-            <div style="flex:1; display:flex; justify-content:space-around; color:#aaa; font-size:10px; padding:4px 0;">
-                <span>1</span><span>2</span><span>2</span>
-            </div>
-        </div>
-    </div>
 
-    <div class="match-card-dark">
-        <div class="match-header-dark">
-            <div><span style="color:#d81b22;font-weight:700;">41:12</span> International Clubs - UEFA Champions League Women</div>
-            <i class="fas fa-chart-line" style="color:#555;"></i>
-        </div>
-        <div class="match-body-dark">
-            <div class="team-row-dark">
-                <div class="team-name"><span>ZNK Mura</span></div>
-                <div class="teams-info"><span class="score">0</span><span class="odd-val">6.00</span></div>
-            </div>
-            <div class="team-row-dark">
-                <div class="team-name"><span>ZNK Hajduk Split</span></div>
-                <div class="teams-info"><span class="score">0</span><span class="odd-val">2.95</span></div>
-            </div>
-            <div class="match-info-dark"><span>+ 81 ></span></div>
-        </div>
-        <div class="odds-row-dark">
-            <div style="flex:1; display:flex; justify-content:space-around; color:#aaa; font-size:10px; padding:4px 0;">
-                <span>0</span><span>0</span><span>0</span>
+        <div class="market-tabs">
+            <span class="m active">1X2</span>
+            <span class="m">O/U</span>
+            <span class="m">DC</span>
+            <span class="m">1st Half O/U</span>
+            <span class="m">Handicap</span>
+            <div class="market-divider"></div>
+            <div class="toggle-icon">
+                <img src="https://i.ibb.co/7dBg76W5/4bb6723f-e014-46e7-b400-55bcb7e0bf9b.png" class="up-down-icon" alt="1Up/2Up">
             </div>
         </div>
+
+        <div class="col-headers">
+            <span>1</span>
+            <span>X</span>
+            <span>2</span>
+        </div>
+
+        <div class="live-match">
+            <div class="lm-top">
+                <span class="clock">81:59</span>
+                <span>International Clubs - UEFA Champions League Women</span>
+                <span class="graph">📈</span>
+            </div>
+            <div class="lm-row">
+                <div class="lm-teams">
+                    <div class="lm-team">Ferencvarosi Bu... <span class="score">1</span></div>
+                    <div class="lm-team">KFF Mitrovica <span class="score">2</span></div>
+                </div>
+                <div class="lm-odds">
+                    <div class="odd-dark">1.75</div>
+                    <div class="odd-dark blue-odd">2.10</div>
+                    <div class="odd-dark red-odd">17.50</div>
+                </div>
+            </div>
+            <div class="lm-more">+ 5 &gt;</div>
+        </div>
+
+        <div class="live-match">
+            <div class="lm-top">
+                <span class="clock">41:12</span>
+                <span>International Clubs - UEFA Champions League Women</span>
+                <span class="graph">📈</span>
+            </div>
+            <div class="lm-row">
+                <div class="lm-teams">
+                    <div class="lm-team">ZNK Hajduk Spli... <span class="score">0</span></div>
+                    <div class="lm-team">ZNK Mura <span class="score">0</span></div>
+                </div>
+                <div class="lm-odds">
+                    <div class="odd-dark">6.00</div>
+                    <div class="odd-dark blue-odd">2.95</div>
+                    <div class="odd-dark red-odd">1.70</div>
+                </div>
+            </div>
+            <div class="lm-more">+ 81 &gt;</div>
+        </div>
+
+        <div class="live-match" style="border-bottom: none;">
+            <div class="lm-top">
+                <span class="clock">81:43</span>
+                <span>International Clubs - Club Friendly Games</span>
+                <span class="graph">📈</span>
+            </div>
+            <div class="lm-row">
+                <div class="lm-teams">
+                    <div class="lm-team">Ferencvarosi <span class="score">1</span></div>
+                    <div class="lm-team">Juventus <span class="score">0</span></div>
+                </div>
+                <div class="lm-odds">
+                    <div class="odd-dark">10.50</div>
+                    <div class="odd-dark blue-odd">6.40</div>
+                    <div class="odd-dark red-odd">1.25</div>
+                </div>
+            </div>
+            <div class="lm-more">+ 2 &gt;</div>
+        </div>
+
     </div>
 
     <!-- FLOATING BETSLIP -->
@@ -255,6 +927,7 @@
             Games
         </div>
         <div class="main-nav-item">
+            <div class="nav-badge-dot"></div>
             <img src="https://s.sporty.net/global/main/modules/common-wap/components/layout/image/open-bet.5dd2b1ed6e.png" class="icon-nav-icon" alt="Open Bets">
             Open Bets
         </div>
@@ -267,7 +940,15 @@
     <script>
         let betslipCount = 0;
         const badge = document.getElementById('betslip-count');
-        function addBet() { betslipCount++; badge.innerText = betslipCount; }
+
+        function addBet() {
+            betslipCount++;
+            badge.innerText = betslipCount;
+            badge.style.transform = 'scale(1.4)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 200);
+        }
     </script>
 </body>
 </html>
