@@ -56,7 +56,7 @@
             font-size: 18px;
             cursor: pointer;
         }
-        /* BALANCE PILL – SQUARE, no border-radius */
+        /* BALANCE PILL – SQUARE, no rounded corners */
         .balance-pill {
             background: var(--brand-red);
             border: 1.5px solid white;
@@ -84,9 +84,7 @@
             margin-top: 58px;
             border-bottom: 8px solid #f5f5f5;
         }
-        .game-cards::-webkit-scrollbar {
-            display: none;
-        }
+        .game-cards::-webkit-scrollbar { display: none; }
         .game-card {
             min-width: 65px;
             width: 65px;
@@ -128,9 +126,7 @@
             border-bottom: 8px solid #f5f5f5;
             overflow-x: auto;
         }
-        .icon-nav::-webkit-scrollbar {
-            display: none;
-        }
+        .icon-nav::-webkit-scrollbar { display: none; }
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -148,33 +144,47 @@
             object-fit: contain;
         }
 
-        /* --- SUB TABS - RED LINE AT TOP OF EUROPA LEAGUE --- */
+        /* ============================================================
+           SUB TABS – SQUARE BORDERS (raised boxes with shadows)
+           ============================================================ */
         .sub-tabs {
-            background: white;
+            background: #f0f0f0;
             display: flex;
-            padding: 0;
-            border-bottom: 1px solid #eee;
+            padding: 8px 12px;
+            gap: 6px;
+            border-bottom: 1px solid #ddd;
         }
         .sub-tab {
             flex: 1;
             text-align: center;
-            padding: 14px 5px;
+            padding: 10px 4px;
             font-size: 11px;
             font-weight: 700;
-            color: #222;
-            border-top: 3px solid transparent;
-            border-bottom: 3px solid transparent;
+            color: #333;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 0;
             cursor: pointer;
             line-height: 1.3;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            transition: all 0.1s;
         }
-        .sub-tab.active-top-red {
-            border-top-color: var(--brand-red);
+        .sub-tab:active {
+            transform: scale(0.97);
+        }
+        .sub-tab.active {
+            border-top: 3px solid var(--brand-red);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            position: relative;
         }
         .sub-tab.gray-line {
-            border-top-color: #aaa;
+            border-top: 3px solid #aaa;
         }
         .sub-tab.green-line {
-            border-top-color: var(--brand-green);
+            border-top: 3px solid var(--brand-green);
+        }
+        .sub-tab.purple-line {
+            border-top: 3px solid #6b2fb3;
         }
 
         /* --- MAIN TABS --- */
@@ -208,9 +218,7 @@
             overflow-x: auto;
             gap: 10px;
         }
-        .league-wrapper::-webkit-scrollbar {
-            display: none;
-        }
+        .league-wrapper::-webkit-scrollbar { display: none; }
         .league-pill {
             background: white;
             border: 1px solid #ddd;
@@ -232,7 +240,7 @@
         }
 
         /* ============================================================
-           MATCH CARDS – WIDER (rectangular, stretched)
+           MATCH CARDS
            ============================================================ */
         .match-cards {
             display: flex;
@@ -240,17 +248,15 @@
             padding: 0 16px 16px;
             overflow-x: auto;
         }
-        .match-cards::-webkit-scrollbar {
-            display: none;
-        }
+        .match-cards::-webkit-scrollbar { display: none; }
         .match-card {
             flex: 0 0 auto;
             width: 340px;
             background: #fff;
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
         }
         .mc-league {
             background: #fafafa;
@@ -312,7 +318,6 @@
             color: #111;
             background: #f5f5f5;
             padding: 2px 8px;
-            border-radius: 12px;
         }
         .mc-mid .vs {
             font-size: 10px;
@@ -320,37 +325,45 @@
             color: #888;
             letter-spacing: 0.5px;
         }
+
+        /* ============================================================
+           ODDS BUTTONS – SHORT, WIDE, FLAT LIGHT GREEN (no borders)
+           ============================================================ */
         .mc-odds {
             display: flex;
             gap: 6px;
             margin-top: 12px;
         }
-        /* ODDS BUTTONS – with visible border */
         .odd-btn {
             flex: 1;
-            background: #e5f7ec;
-            border-radius: 4px;
+            background: #e8f5ed;
             text-align: center;
-            padding: 8px 2px;
+            padding: 2px 2px;
             cursor: pointer;
             transition: background 0.1s;
-            border: 1.5px solid var(--brand-green);
+            border: none;
+            border-radius: 0;
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .odd-btn:active {
             background: #d0ebda;
-            border-color: #006644;
         }
         .odd-btn .lbl {
             font-size: 9px;
             color: #555;
             font-weight: 700;
             text-transform: uppercase;
+            line-height: 1;
         }
         .odd-btn .val {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
-            color: var(--brand-green);
-            margin-top: 1px;
+            color: #0a6b2f;
+            line-height: 1.2;
         }
         .mc-extra {
             display: flex;
@@ -374,7 +387,7 @@
         }
 
         /* ============================================================
-           LIVE SECTION – LIVE text is same color as others (no red)
+           LIVE SECTION
            ============================================================ */
         .live-section {
             background: var(--bg-dark);
@@ -390,14 +403,11 @@
             border-bottom: 1px solid #2b2f36;
             gap: 4px;
         }
-        .live-tabs::-webkit-scrollbar {
-            display: none;
-        }
-        /* LIVE is now gray like the others, no red */
+        .live-tabs::-webkit-scrollbar { display: none; }
         .live-badge {
             font-size: 14px;
             font-weight: 700;
-            color: #9aa0a8;   /* same as inactive tabs */
+            color: #9aa0a8;
             flex-shrink: 0;
             margin-right: 12px;
         }
@@ -417,7 +427,6 @@
             border-bottom-color: var(--brand-green);
         }
 
-        /* Market tabs */
         .market-tabs {
             display: flex;
             align-items: center;
@@ -425,9 +434,7 @@
             border-bottom: 1px solid #2b2f36;
             gap: 4px;
         }
-        .market-tabs::-webkit-scrollbar {
-            display: none;
-        }
+        .market-tabs::-webkit-scrollbar { display: none; }
         .market-tabs .m {
             flex: 1;
             text-align: center;
@@ -444,7 +451,6 @@
             border-bottom-color: var(--brand-green);
         }
 
-        /* Divider – thin and short */
         .market-divider {
             flex: 0 0 1px;
             height: 18px;
@@ -452,7 +458,6 @@
             margin: 0 6px 0 4px;
         }
 
-        /* 1UP/2UP icon */
         .toggle-icon {
             flex: 0 0 auto;
             display: flex;
@@ -466,7 +471,6 @@
             cursor: pointer;
         }
 
-        /* Column headers */
         .col-headers {
             display: flex;
             justify-content: flex-end;
@@ -481,7 +485,6 @@
             text-align: center;
         }
 
-        /* Live match rows */
         .live-match {
             padding: 12px 16px;
             border-bottom: 1px solid #2b2f36;
@@ -536,32 +539,38 @@
             text-align: right;
         }
 
+        /* ODDS DARK – SHORT, WIDE, FLAT LIGHT GREEN (no borders) */
         .lm-odds {
             display: flex;
             gap: 8px;
         }
         .odd-dark {
             width: 78px;
-            background: #1e2228;
-            border-radius: 4px;
+            background: #e8f5ed;
             text-align: center;
-            padding: 10px 4px;
-            font-size: 15px;
+            padding: 2px 4px;
+            font-size: 14px;
             font-weight: 800;
-            color: var(--brand-green);
+            color: #0a6b2f;
             cursor: pointer;
-            border: 1.5px solid #3a3f48;
-            transition: border 0.1s, background 0.1s;
+            border: none;
+            border-radius: 0;
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.1s;
         }
         .odd-dark:active {
-            background: #2f353e;
-            border-color: var(--brand-green);
+            background: #d0ebda;
         }
+        /* Keep consistent flat green for all, ignore blue/red overrides */
         .odd-dark.blue-odd {
-            color: #42a5f5;
+            color: #0a6b2f;
         }
         .odd-dark.red-odd {
-            color: #ef5350;
+            color: #0a6b2f;
         }
 
         .lm-more {
@@ -574,7 +583,7 @@
             color: #9aa0a8;
         }
 
-        /* --- FLOATING BETSLIP (circular) --- */
+        /* --- FLOATING BETSLIP --- */
         .floating-btn {
             position: fixed;
             bottom: 85px;
@@ -738,12 +747,14 @@
         <div class="nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/sidePanelNav/img/more-dot.c90f5d29d4.svg">More</div>
     </div>
 
-    <!-- SUB TABS – RED LINE AT TOP OF EUROPA LEAGUE -->
+    <!-- ============================================================
+         SUB TABS – SQUARE BORDERS (raised boxes with shadows)
+         ============================================================ -->
     <div class="sub-tabs">
-        <div class="sub-tab">TODAY'S<br>FOOTBALL</div>
+        <div class="sub-tab active">TODAY'S<br>FOOTBALL</div>
         <div class="sub-tab gray-line">FOOTBALL<br>IN NEXT 3 HOURS</div>
         <div class="sub-tab green-line">CHAMPIONS<br>LEAGUE</div>
-        <div class="sub-tab active-top-red">EUROPA<br>LEAGUE</div>
+        <div class="sub-tab purple-line">EUROPA<br>LEAGUE</div>
     </div>
 
     <!-- MAIN TABS -->
@@ -764,7 +775,7 @@
     </div>
 
     <!-- ============================================================
-         MATCH CARDS – WIDER (340px) RECTANGULAR
+         MATCH CARDS
          ============================================================ -->
     <div class="match-cards">
         <div class="match-card">
@@ -809,7 +820,7 @@
     </div>
 
     <!-- ============================================================
-         LIVE SECTION – LIVE text is now gray, same as others
+         LIVE SECTION
          ============================================================ -->
     <div class="live-section">
 
