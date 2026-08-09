@@ -48,7 +48,8 @@
         .mc-body { padding: 12px 12px 14px; }
         .mc-teams { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
         .mc-team { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 85px; }
-        .mc-team .crest { width: 34px; height: 34px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .mc-team .crest { width: 34px; height: 34px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 16px; overflow: hidden; }
+        .mc-team .crest img { width: 100%; height: 100%; object-fit: cover; }
         .mc-team .name { font-size: 13px; font-weight: 700; color: #111; text-align: center; line-height: 1.2; }
         .mc-mid { display: flex; flex-direction: column; align-items: center; gap: 2px; }
         .mc-mid .time { font-size: 11px; font-weight: 700; color: #111; background: #f5f5f5; padding: 2px 8px; }
@@ -91,8 +92,6 @@
         .lm-odds { display: flex; gap: 8px; }
         .odd-dark { width: 78px; background: #e8f5ed; text-align: center; padding: 2px 4px; font-size: 14px; font-weight: 800; color: #0a6b2f; cursor: pointer; border: none; border-radius: 0; height: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: background 0.1s; }
         .odd-dark:active { background: #d0ebda; }
-        .odd-dark.blue-odd { color: #0a6b2f; }
-        .odd-dark.red-odd { color: #0a6b2f; }
         .odd-dark.selected { background: var(--brand-green); color: #fff; }
         .lm-more { font-size: 11.5px; color: #6b7178; cursor: pointer; margin-top: 2px; }
         .lm-more:hover { color: #9aa0a8; }
@@ -113,7 +112,7 @@
         .main-nav-item.active-red .icon-games-clipped { mix-blend-mode: normal; }
         .nav-badge-dot { position: absolute; top: 2px; right: 6px; width: 8px; height: 8px; background: var(--brand-red); border-radius: 50%; border: 1px solid #1c1c1e; }
 
-        /* --- MODAL STYLES --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -173,7 +172,10 @@
         .icon-grid .icon-option:hover { border-color: var(--brand-green); }
         .icon-grid .icon-option.selected { border-color: var(--brand-green); background: #e8f5ed; }
 
-        /* responsive adjustments */
+        /* Loading */
+        .loader { text-align: center; padding: 20px; color: #888; }
+        .loader i { font-size: 24px; margin-right: 8px; }
+
         @media (max-width: 420px) {
             .match-card { width: 290px; }
             .mc-team { width: 70px; }
@@ -220,9 +222,7 @@
         <div class="nav-item"><img src="https://s.sporty.net/global/main/modules/common-wap/components/sidePanelNav/img/more-dot.c90f5d29d4.svg">More</div>
     </div>
 
-    <!-- ============================================================
-         SUB TABS (Today's Football, etc.)
-         ============================================================ -->
+    <!-- SUB TABS -->
     <div class="sub-tabs" id="subTabs">
         <div class="sub-tab active" data-tab="today">TODAY'S<br>FOOTBALL</div>
         <div class="sub-tab gray-line" data-tab="next3">FOOTBALL<br>IN NEXT 3 HOURS</div>
@@ -239,25 +239,18 @@
         <div class="main-tab" data-tab="virtuals">Virtuals</div>
     </div>
 
-    <!-- LEAGUE PILLS (with team logos) -->
+    <!-- LEAGUE PILLS (team logos will be dynamically added) -->
     <div class="league-wrapper" id="leagueWrapper">
         <div class="league-pill"><img src="https://s.sporty.net/common/main/res/90e3adb4f5ab8a8f29457ee32413726f.png"> Club Friendly Games</div>
-        <!-- Additional circles for team logos (will be dynamically updated) -->
-        <div class="league-pill" style="padding:6px; border-radius:50%; width:32px; height:32px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/ab9472c11b025ebcc9806540a279e8c3.png"></div>
-        <div class="league-pill" style="padding:6px; border-radius:50%; width:32px; height:32px; justify-content:center;"><img src="https://s.sporty.net/ng/main/res/d4aa6f519ef3ef6e81cf04c0a5325c50.png"></div>
-        <div class="league-pill" style="padding:6px; border-radius:50%; width:32px; height:32px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/630c54e5b737d917d4a43e574fb8223f.png"></div>
-        <div class="league-pill" style="padding:6px; border-radius:50%; width:32px; height:32px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/abc123.png"></div>
-        <div class="league-pill" style="padding:6px; border-radius:50%; width:32px; height:32px; justify-content:center;"><img src="https://s.sporty.net/common/main/res/def456.png"></div>
+        <!-- Dynamic circles will be injected here -->
     </div>
 
-    <!-- ============================================================
-         MATCH CARDS CONTAINER (dynamically generated)
-         ============================================================ -->
-    <div class="match-cards" id="matchCardsContainer"></div>
+    <!-- MATCH CARDS CONTAINER -->
+    <div id="matchCardsContainer">
+        <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading matches...</div>
+    </div>
 
-    <!-- ============================================================
-         LIVE SECTION
-         ============================================================ -->
+    <!-- LIVE SECTION -->
     <div class="live-section">
         <div class="live-tabs" id="liveTabs">
             <span class="live-badge">LIVE</span>
@@ -285,8 +278,9 @@
             <span>2</span>
         </div>
 
-        <!-- Live matches will be inserted here by JS -->
-        <div id="liveMatchesContainer"></div>
+        <div id="liveMatchesContainer">
+            <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading live matches...</div>
+        </div>
     </div>
 
     <!-- FLOATING BETSLIP -->
@@ -325,10 +319,7 @@
         </div>
     </div>
 
-    <!-- ============================================================
-         MODALS
-         ============================================================ -->
-    <!-- Balance Edit Modal -->
+    <!-- MODALS -->
     <div class="modal-overlay" id="balanceModal">
         <div class="modal-box">
             <h3>Edit Balance</h3>
@@ -340,13 +331,10 @@
         </div>
     </div>
 
-    <!-- Profile Icon Selector Modal -->
     <div class="modal-overlay" id="iconModal">
         <div class="modal-box">
             <h3>Choose Profile Icon</h3>
-            <div class="icon-grid" id="iconGrid">
-                <!-- icons will be injected by JS -->
-            </div>
+            <div class="icon-grid" id="iconGrid"></div>
             <div class="btn-row">
                 <button class="cancel" onclick="closeIconModal()">Cancel</button>
             </div>
@@ -355,13 +343,19 @@
 
     <script>
         // ================================================================
-        // DATA & STATE
+        // CONFIG
+        // ================================================================
+        const API_KEY = '222cad280d3780221ebd20b117da3e6a';
+        const API_HOST = 'v3.football.api-sports.io';
+        const BASE_URL = `https://${API_HOST}`;
+
+        // ================================================================
+        // STATE
         // ================================================================
         let balance = 6845.00;
-        let selectedIcon = 'fa-user-circle'; // default
+        let selectedIcon = 'fa-user-circle';
         let betslipCount = 0;
 
-        // Available profile icons (FontAwesome classes)
         const profileIcons = [
             'fa-user-circle', 'fa-user', 'fa-futbol', 'fa-basketball-ball',
             'fa-volleyball-ball', 'fa-baseball-ball', 'fa-tennis-ball',
@@ -369,161 +363,249 @@
             'fa-dumbbell', 'fa-running', 'fa-walking', 'fa-bicycle'
         ];
 
-        // Sample match data (will be replaced with API data)
-        const sampleMatches = [
-            {
-                league: 'Football – International Clubs',
-                sub: 'Club Friendly Games',
-                home: 'Ferencvarosi',
-                homeCrest: '🟢',
-                away: 'Real Madrid',
-                awayCrest: '⚪',
-                time: '17:00 | 08/08',
-                odds: { '1': '10.50', 'X': '6.40', '2': '1.25' },
-                extra: { '1': '2.90', '2': '1.25' }
-            },
-            {
-                league: 'Football – International Clubs',
-                sub: 'Club Friendly Games',
-                home: 'Juventus',
-                homeCrest: '⚫',
-                away: 'Al Hilal',
-                awayCrest: '🔵',
-                time: '19:30 | 08/08',
-                odds: { '1': '2.90', 'X': '3.40', '2': '2.35' },
-                extra: { '1': '2.90', '2': '2.35' }
-            },
-            {
-                league: 'Premier League',
-                sub: 'Matchday 1',
-                home: 'Arsenal',
-                homeCrest: '🔴',
-                away: 'Chelsea',
-                awayCrest: '🔵',
-                time: '15:00 | 08/08',
-                odds: { '1': '2.20', 'X': '3.40', '2': '3.10' },
-                extra: { '1': '2.20', '2': '3.10' }
-            }
-        ];
+        // ================================================================
+        // API HELPERS
+        // ================================================================
+        async function apiFetch(endpoint) {
+            const url = `${BASE_URL}${endpoint}`;
+            const response = await fetch(url, {
+                headers: {
+                    'x-rapidapi-key': API_KEY,
+                    'x-rapidapi-host': API_HOST
+                }
+            });
+            if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+            return response.json();
+        }
 
-        // Live match sample data
-        const sampleLiveMatches = [
-            {
-                clock: '81:59',
-                league: 'International Clubs - UEFA Champions League Women',
-                home: 'Ferencvarosi Bu...',
-                homeScore: '1',
-                away: 'KFF Mitrovica',
-                awayScore: '2',
-                odds: ['1.75', '2.10', '17.50'],
-                more: '+ 5 >'
-            },
-            {
-                clock: '41:12',
-                league: 'International Clubs - UEFA Champions League Women',
-                home: 'ZNK Hajduk Spli...',
-                homeScore: '0',
-                away: 'ZNK Mura',
-                awayScore: '0',
-                odds: ['6.00', '2.95', '1.70'],
-                more: '+ 81 >'
-            },
-            {
-                clock: '81:43',
-                league: 'International Clubs - Club Friendly Games',
-                home: 'Ferencvarosi',
-                homeScore: '1',
-                away: 'Juventus',
-                awayScore: '0',
-                odds: ['10.50', '6.40', '1.25'],
-                more: '+ 2 >'
+        function formatDate(date) {
+            const d = new Date(date);
+            return d.toISOString().split('T')[0];
+        }
+
+        function formatTime(dateStr) {
+            const d = new Date(dateStr);
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function getStatus(fixture) {
+            const status = fixture.status?.short || 'FT';
+            if (status === 'LIVE' || status === '1H' || status === '2H' || status === 'HT' || status === 'ET' || status === 'P') {
+                return 'live';
             }
-        ];
+            return 'finished';
+        }
 
         // ================================================================
-        // RENDER FUNCTIONS
+        // RENDER FUNCTIONS (UPDATED for API data)
         // ================================================================
 
         function renderMatchCards(matches) {
             const container = document.getElementById('matchCardsContainer');
-            container.innerHTML = matches.map(m => `
-                <div class="match-card">
-                    <div class="mc-league">${m.league} <span class="sub">| ${m.sub}</span></div>
-                    <div class="mc-body">
-                        <div class="mc-teams">
-                            <div class="mc-team"><div class="crest">${m.homeCrest}</div><div class="name">${m.home}</div></div>
-                            <div class="mc-mid"><div class="time">${m.time}</div><div class="vs">1X2</div></div>
-                            <div class="mc-team"><div class="crest">${m.awayCrest}</div><div class="name">${m.away}</div></div>
-                        </div>
-                        <div class="mc-odds">
-                            ${Object.entries(m.odds).map(([key, val]) => `
-                                <div class="odd-btn" data-selection="${key}" data-value="${val}" onclick="selectOdds(this)">
-                                    <span class="lbl">${key}</span>
-                                    <span class="val">${val}</span>
+            if (!matches || matches.length === 0) {
+                container.innerHTML = `<div class="loader">No matches found for today.</div>`;
+                return;
+            }
+            container.innerHTML = matches.map(m => {
+                // m contains: fixture, league, teams, goals, score, etc.
+                const homeTeam = m.teams.home;
+                const awayTeam = m.teams.away;
+                const homeScore = m.goals.home ?? m.score?.fulltime?.home ?? '-';
+                const awayScore = m.goals.away ?? m.score?.fulltime?.away ?? '-';
+                const dateTime = m.fixture.date;
+                const timeStr = formatTime(dateTime);
+                const dateStr = formatDate(dateTime);
+                const displayTime = `${timeStr} | ${dateStr}`;
+
+                // For odds, we'll use placeholder if not available
+                const odds = m.odds || { '1': '?', 'X': '?', '2': '?' };
+                // Build extra row with just 1 and 2 (could be improved)
+                const extra = { '1': odds['1'] || '?', '2': odds['2'] || '?' };
+
+                return `
+                    <div class="match-card">
+                        <div class="mc-league">${m.league.name} <span class="sub">| ${m.league.country || ''}</span></div>
+                        <div class="mc-body">
+                            <div class="mc-teams">
+                                <div class="mc-team">
+                                    <div class="crest"><img src="${homeTeam.logo}" alt="${homeTeam.name}" onerror="this.style.display='none'"></div>
+                                    <div class="name">${homeTeam.name}</div>
                                 </div>
-                            `).join('')}
-                        </div>
-                        <div class="mc-extra">
-                            ${Object.entries(m.extra).map(([key, val]) => `
-                                <div class="extra-item"><span>${key}</span><span class="val">${val}</span></div>
-                            `).join('')}
+                                <div class="mc-mid">
+                                    <div class="time">${displayTime}</div>
+                                    <div class="vs">1X2</div>
+                                </div>
+                                <div class="mc-team">
+                                    <div class="crest"><img src="${awayTeam.logo}" alt="${awayTeam.name}" onerror="this.style.display='none'"></div>
+                                    <div class="name">${awayTeam.name}</div>
+                                </div>
+                            </div>
+                            <div class="mc-odds">
+                                ${Object.entries(odds).map(([key, val]) => `
+                                    <div class="odd-btn" data-selection="${key}" data-value="${val}" onclick="selectOdds(this)">
+                                        <span class="lbl">${key}</span>
+                                        <span class="val">${val}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="mc-extra">
+                                ${Object.entries(extra).map(([key, val]) => `
+                                    <div class="extra-item"><span>${key}</span><span class="val">${val}</span></div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function renderLiveMatches(matches) {
             const container = document.getElementById('liveMatchesContainer');
-            container.innerHTML = matches.map(m => `
-                <div class="live-match">
-                    <div class="lm-top">
-                        <span class="clock">${m.clock}</span>
-                        <span>${m.league}</span>
-                        <span class="graph">📈</span>
-                    </div>
-                    <div class="lm-row">
-                        <div class="lm-teams">
-                            <div class="lm-team">${m.home} <span class="score">${m.homeScore}</span></div>
-                            <div class="lm-team">${m.away} <span class="score">${m.awayScore}</span></div>
+            if (!matches || matches.length === 0) {
+                container.innerHTML = `<div class="loader" style="color:#9aa0a8;">No live matches at the moment.</div>`;
+                return;
+            }
+            container.innerHTML = matches.map(m => {
+                const homeTeam = m.teams.home;
+                const awayTeam = m.teams.away;
+                const homeScore = m.goals.home ?? 0;
+                const awayScore = m.goals.away ?? 0;
+                const elapsed = m.fixture.status?.elapsed || '?';
+                const clock = `${elapsed}`;
+                // For odds, placeholder
+                const odds = m.odds || { '1': '?', 'X': '?', '2': '?' };
+                const oddsArray = [odds['1'] || '?', odds['X'] || '?', odds['2'] || '?'];
+
+                return `
+                    <div class="live-match">
+                        <div class="lm-top">
+                            <span class="clock">${clock}</span>
+                            <span>${m.league.name}</span>
+                            <span class="graph">📈</span>
                         </div>
-                        <div class="lm-odds">
-                            ${m.odds.map((odd, idx) => `
-                                <div class="odd-dark" data-odd="${odd}" onclick="selectLiveOdds(this)">
-                                    ${odd}
-                                </div>
-                            `).join('')}
+                        <div class="lm-row">
+                            <div class="lm-teams">
+                                <div class="lm-team">${homeTeam.name} <span class="score">${homeScore}</span></div>
+                                <div class="lm-team">${awayTeam.name} <span class="score">${awayScore}</span></div>
+                            </div>
+                            <div class="lm-odds">
+                                ${oddsArray.map((odd, idx) => `
+                                    <div class="odd-dark" data-odd="${odd}" onclick="selectLiveOdds(this)">
+                                        ${odd}
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
+                        <div class="lm-more">+ ${elapsed} &gt;</div>
                     </div>
-                    <div class="lm-more">${m.more}</div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function renderIconGrid() {
-            const grid = document.getElementById('iconGrid');
-            grid.innerHTML = profileIcons.map(icon => `
-                <div class="icon-option ${icon === selectedIcon ? 'selected' : ''}" data-icon="${icon}" onclick="selectProfileIcon('${icon}')">
-                    <i class="fas ${icon}"></i>
-                </div>
-            `).join('');
-        }
+        function renderLeaguePills(teams) {
+            const wrapper = document.getElementById('leagueWrapper');
+            // Keep the first pill (Club Friendly Games) and add up to 5 team logos
+            const firstPill = wrapper.querySelector('.league-pill');
+            wrapper.innerHTML = '';
+            wrapper.appendChild(firstPill);
 
-        function updateProfileIcon() {
-            document.getElementById('profileIcon').className = `fas ${selectedIcon}`;
-        }
-
-        function updateBalanceDisplay() {
-            document.getElementById('balanceAmount').textContent = `GHS ${balance.toFixed(2)}`;
+            const uniqueTeams = teams.slice(0, 5); // show up to 5
+            uniqueTeams.forEach(team => {
+                const pill = document.createElement('div');
+                pill.className = 'league-pill';
+                pill.style.cssText = 'padding:4px; border-radius:50%; width:30px; height:30px; justify-content:center; overflow:hidden;';
+                const img = document.createElement('img');
+                img.src = team.logo;
+                img.alt = team.name;
+                img.onerror = function() { this.style.display = 'none'; };
+                img.style.cssText = 'width:100%; height:100%; object-fit:contain;';
+                pill.appendChild(img);
+                wrapper.appendChild(pill);
+            });
         }
 
         // ================================================================
-        // INTERACTIVE FUNCTIONS
+        // FETCH DATA
         // ================================================================
 
-        // Balance modal
+        async function fetchTodayMatches() {
+            try {
+                const today = new Date();
+                const dateStr = formatDate(today);
+                const data = await apiFetch(`/fixtures?date=${dateStr}`);
+                if (data.response && data.response.length > 0) {
+                    // We also need odds - we can fetch odds per fixture but that's heavy.
+                    // We'll just show the fixtures and add static odds for now.
+                    // For demonstration, we can map odds to each fixture (maybe from a separate call later).
+                    const matches = data.response;
+                    // For each match, add placeholder odds if not present
+                    matches.forEach(m => {
+                        if (!m.odds) {
+                            m.odds = { '1': '1.80', 'X': '3.20', '2': '4.50' };
+                        }
+                    });
+                    renderMatchCards(matches);
+                    // Also collect team logos for league pills
+                    const teams = matches.map(m => m.teams.home).concat(matches.map(m => m.teams.away));
+                    renderLeaguePills(teams);
+                } else {
+                    renderMatchCards([]);
+                }
+            } catch (error) {
+                console.error('Error fetching today matches:', error);
+                document.getElementById('matchCardsContainer').innerHTML = `<div class="loader">Failed to load matches. Please try again later.</div>`;
+            }
+        }
+
+        async function fetchLiveMatches() {
+            try {
+                const data = await apiFetch('/fixtures?live=all');
+                if (data.response && data.response.length > 0) {
+                    const matches = data.response;
+                    // Add placeholder odds
+                    matches.forEach(m => {
+                        if (!m.odds) {
+                            m.odds = { '1': '1.95', 'X': '3.10', '2': '3.80' };
+                        }
+                    });
+                    renderLiveMatches(matches);
+                } else {
+                    renderLiveMatches([]);
+                }
+            } catch (error) {
+                console.error('Error fetching live matches:', error);
+                document.getElementById('liveMatchesContainer').innerHTML = `<div class="loader" style="color:#9aa0a8;">Error loading live matches.</div>`;
+            }
+        }
+
+        // ================================================================
+        // INTERACTIVE FUNCTIONS (unchanged)
+        // ================================================================
+
+        function selectOdds(el) {
+            const parent = el.closest('.mc-odds');
+            parent.querySelectorAll('.odd-btn').forEach(btn => btn.classList.remove('selected'));
+            el.classList.add('selected');
+            betslipCount++;
+            document.getElementById('betslip-count').textContent = betslipCount;
+        }
+
+        function selectLiveOdds(el) {
+            const parent = el.closest('.lm-odds');
+            parent.querySelectorAll('.odd-dark').forEach(btn => btn.classList.remove('selected'));
+            el.classList.add('selected');
+            betslipCount++;
+            document.getElementById('betslip-count').textContent = betslipCount;
+        }
+
+        document.getElementById('betslipBtn').addEventListener('click', function() {
+            alert(`Betslip has ${betslipCount} selections.`);
+        });
+
+        // Balance & profile modals (unchanged)
         document.getElementById('balancePill').addEventListener('click', function(e) {
-            // If click on the icon part, open icon modal
             if (e.target.closest('.fa-user-circle') || e.target.closest('#profileIcon')) {
                 openIconModal();
                 return;
@@ -535,89 +617,61 @@
             document.getElementById('balanceInput').value = balance.toFixed(2);
             document.getElementById('balanceModal').classList.add('show');
         }
-
         function closeBalanceModal() {
             document.getElementById('balanceModal').classList.remove('show');
         }
-
         function saveBalance() {
             const val = parseFloat(document.getElementById('balanceInput').value);
             if (!isNaN(val) && val >= 0) {
                 balance = val;
-                updateBalanceDisplay();
+                document.getElementById('balanceAmount').textContent = `GHS ${balance.toFixed(2)}`;
                 closeBalanceModal();
             } else {
                 alert('Please enter a valid amount.');
             }
         }
 
-        // Profile icon modal
         function openIconModal() {
             renderIconGrid();
             document.getElementById('iconModal').classList.add('show');
         }
-
         function closeIconModal() {
             document.getElementById('iconModal').classList.remove('show');
         }
-
         function selectProfileIcon(icon) {
             selectedIcon = icon;
-            updateProfileIcon();
-            // update grid highlight
+            document.getElementById('profileIcon').className = `fas ${selectedIcon}`;
             document.querySelectorAll('.icon-option').forEach(el => {
                 el.classList.toggle('selected', el.dataset.icon === icon);
             });
-            // optionally close modal after selection
             closeIconModal();
         }
-
-        // Odds selection (match cards)
-        function selectOdds(el) {
-            // Remove selected from siblings
-            const parent = el.closest('.mc-odds');
-            parent.querySelectorAll('.odd-btn').forEach(btn => btn.classList.remove('selected'));
-            el.classList.add('selected');
-            // Update betslip count
-            betslipCount++;
-            document.getElementById('betslip-count').textContent = betslipCount;
+        function renderIconGrid() {
+            const grid = document.getElementById('iconGrid');
+            grid.innerHTML = profileIcons.map(icon => `
+                <div class="icon-option ${icon === selectedIcon ? 'selected' : ''}" data-icon="${icon}" onclick="selectProfileIcon('${icon}')">
+                    <i class="fas ${icon}"></i>
+                </div>
+            `).join('');
         }
 
-        // Odds selection (live)
-        function selectLiveOdds(el) {
-            const parent = el.closest('.lm-odds');
-            parent.querySelectorAll('.odd-dark').forEach(btn => btn.classList.remove('selected'));
-            el.classList.add('selected');
-            betslipCount++;
-            document.getElementById('betslip-count').textContent = betslipCount;
-        }
-
-        // Betslip button
-        document.getElementById('betslipBtn').addEventListener('click', function() {
-            alert(`Betslip has ${betslipCount} selections.`);
-        });
-
         // ================================================================
-        // TAB SWITCHING (responsive)
+        // TABS (unchanged)
         // ================================================================
 
-        // Sub tabs (Today's Football, etc.)
         document.querySelectorAll('#subTabs .sub-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('#subTabs .sub-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                // Here you would filter matches based on data-tab attribute
-                // For now, just re-render all
-                renderMatchCards(sampleMatches);
+                // Could filter by league/time later
+                fetchTodayMatches(); // refresh
             });
         });
 
-        // Main tabs (Featured, Matches, etc.)
         document.querySelectorAll('#mainTabs .main-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('#mainTabs .main-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                // For demo, just toggle visibility of match-cards and live-section
                 const tabName = this.dataset.tab;
                 if (tabName === 'matches') {
                     document.querySelector('.match-cards').style.display = 'flex';
@@ -629,37 +683,25 @@
             });
         });
 
-        // Live tabs (Football, vFootball, etc.)
         document.querySelectorAll('#liveTabs .t').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('#liveTabs .t').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                // In future, filter live matches
-                renderLiveMatches(sampleLiveMatches);
+                // Could filter live matches
             });
         });
 
-        // Market tabs (1X2, O/U, etc.)
         document.querySelectorAll('#marketTabs .m').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('#marketTabs .m').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                // In future, change odds display
             });
         });
 
-        // Bottom navigation
         document.querySelectorAll('#bottomNav .main-nav-item').forEach(item => {
             item.addEventListener('click', function() {
                 document.querySelectorAll('#bottomNav .main-nav-item').forEach(i => i.classList.remove('active-red'));
                 this.classList.add('active-red');
-                // In future, navigate to pages
-                const nav = this.dataset.nav;
-                if (nav === 'home') {
-                    // show home content
-                } else if (nav === 'az') {
-                    // show AZ menu
-                } // etc.
             });
         });
 
@@ -667,10 +709,9 @@
         // INIT
         // ================================================================
 
-        updateBalanceDisplay();
-        updateProfileIcon();
-        renderMatchCards(sampleMatches);
-        renderLiveMatches(sampleLiveMatches);
+        // Load data
+        fetchTodayMatches();
+        fetchLiveMatches();
 
         // Close modals on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
@@ -681,10 +722,11 @@
             });
         });
 
-        // For demo, we can add more circles to league pills (simulate team logos)
-        // This could be replaced with API data later.
-        console.log('SportyBet App initialized.');
-    </script>
+        // Initial balance display
+        document.getElementById('balanceAmount').textContent = `GHS ${balance.toFixed(2)}`;
+        document.getElementById('profileIcon').className = `fas ${selectedIcon}`;
 
+        console.log('SportyBet App initialized with API-Football.');
+    </script>
 </body>
 </html>
